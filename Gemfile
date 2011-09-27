@@ -9,6 +9,7 @@ gem 'mysql2','0.2.6'
 gem 'haml'
 gem 'sass'
 gem 'compass'
+gem 'devise'
 
 # gem 'sqlite3'
 
