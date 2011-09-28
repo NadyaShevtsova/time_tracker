@@ -5,6 +5,7 @@ class CreateTasks < ActiveRecord::Migration
       t.datetime :start_time
       t.datetime :end_time
       t.string   :external_link
+      t.integer  :project_id
 
       t.timestamps
     end
