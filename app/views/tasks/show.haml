@@ -1,0 +1,17 @@
+%p
+  %b Project:
+  =@task.project.name
+%p
+  %b Description:
+  = @task.description
+%p
+  %b Start time 
+  = @task.start_time.strftime("%H:%M") 
+%p
+  %b End time
+  = @task.end_time.strftime("%H:%M") 
+%p
+  %b External_link
+  = @task.external_link 
+= link_to 'Edit', edit_task_path(@task)
+= link_to 'Back', tasks_path

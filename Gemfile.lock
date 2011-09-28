@@ -40,6 +40,7 @@ GEM
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       warden (~> 1.0.3)
+    dynamic_form (1.1.4)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     fssm (0.2.7)
@@ -92,6 +93,7 @@ PLATFORMS
 DEPENDENCIES
   compass
   devise
+  dynamic_form
   haml
   mysql2 (= 0.2.6)
   rails (= 3.0.10)

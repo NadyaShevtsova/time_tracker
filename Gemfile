@@ -11,4 +11,4 @@ gem 'sass'
 gem 'compass'
 gem 'devise'
 gem 'validates_url_format_of'
-
+gem 'dynamic_form'

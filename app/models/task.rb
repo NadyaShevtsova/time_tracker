@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-  belongs_to :projects
+  belongs_to :project
 
   validates :description, :start_time, :external_link, :presence => true
   validates_url_format_of :external_link, :allow_nil => true,

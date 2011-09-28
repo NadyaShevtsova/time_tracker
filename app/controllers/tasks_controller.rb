@@ -9,13 +9,17 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+  def show
+    @task = Task.find(params[:id]) 
+  end
+
   def create
     @task = Task.new(params[:task])
 
     if @task.save
-      format.html { redirect_to(@task, :notice => 'Task was succesfully created')}
+       redirect_to(@task, :notice => 'Task was succesfully created')
     else
-      format.html { render :action => "new"}
+       render :action => "new"
     end
   end
 
