@@ -1,0 +1,14 @@
+%h1 Your tasks for today
+%table
+  - @tasks.each do |task|
+    %tr
+      %td
+        = task.project.name 
+      %td
+        = truncate(task.desciption, :length => 80)
+      %td
+        = task.start_time.strftime(%H %M)
+      %td
+        = task.end_time.strftime(%H %M) 
+      %td 
+        = task.external_link
