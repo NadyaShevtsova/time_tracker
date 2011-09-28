@@ -7,8 +7,10 @@
       %td
         = truncate(task.desciption, :length => 80)
       %td
-        = task.start_time.strftime(%H %M)
+        = task.start_time.strftime("%H:%M")
       %td
-        = task.end_time.strftime(%H %M) 
+        = task.end_time.strftime("%H:%M") 
       %td 
         = task.external_link
+
+= link_to 'New Task', new_task_path
