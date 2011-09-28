@@ -10,5 +10,5 @@ gem 'haml'
 gem 'sass'
 gem 'compass'
 gem 'devise'
-
+gem 'validates_url_format_of'
 
