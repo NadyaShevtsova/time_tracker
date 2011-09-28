@@ -1,7 +1,7 @@
 TimeTracker::Application.routes.draw do
   get "tasks/index"
 
-  devise_for :users
+  devise_for :users, :path_names => {:sign_up => "register"}
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
