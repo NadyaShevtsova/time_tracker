@@ -12,13 +12,11 @@
   %br
 
   = f.label :start_time
-  %br
-  = f.datetime_select(:start_time, :default => { :hour => 23, :minute => 59 })
+  = f.time_select(:start_time, :default => { :hour => 23, :minute => 59 })
   %br
   
   = f.label :end_time
-  %br
-  = f.datetime_select(:end_time, :default => { :hour => 23, :minute => 59 })
+  = f.time_select(:end_time, :default => { :hour => 23, :minute => 59 })
   %br
 
   = f.label :external_link
