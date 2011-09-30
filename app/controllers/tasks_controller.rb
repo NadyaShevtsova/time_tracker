@@ -2,7 +2,8 @@ class TasksController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @tasks = Task.all
+    @project_ids = current_user.projects.collect{ |i| i.id }
+    @tasks = Task.where(:project_id => @project_ids).where('start_time >= ? and end_time <= ?', Date.today.beginning_of_day, Date.today.end_of_day)
   end
 
   def new
