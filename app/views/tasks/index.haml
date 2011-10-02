@@ -4,13 +4,13 @@
 %table{:border => 1}
   %tr
     %th
-      = sortable "task.project.name",  "Projects", params[:date]
+      = sortable "task.project.name",  "Projects", params[:date], params[:per_page]
     %th
-      = sortable "description", "Description", params[:date]
+      = sortable "description", "Description", params[:date], params[:per_page]
     %th
-      = sortable "start_time", "Start time", params[:date]
+      = sortable "start_time", "Start time", params[:date], params[:per_page]
     %th
-      = sortable  "end_time", "Finish time", params[:date]
+      = sortable  "end_time", "Finish time", params[:date], params[:per_page]
     %th
       Options
   - @tasks.each do |task|
@@ -36,4 +36,7 @@
 = link_to 'New Task', new_task_path
 
 %p
-  =will_paginate @tasks
+  = will_paginate @tasks
+  Number items on page:
+  = select_tag "per_page", options_for_select([[3,3], [5,5], [10,10], ["all", 100000]], params[:per_page]), :onchange => "if(this.value){window.location=window.location.search.replace(/&per_page.*/, '') + '&per_page='+this.value;}"
+     

@@ -6,8 +6,7 @@ class TasksController < ApplicationController
     @current_date = (params[:date]).nil? ? Date.today : Date.parse(params[:date])
 
     @project_ids = current_user.projects.collect{ |i| i.id }
-    @tasks = Task.where(:project_id => @project_ids).where('start_time >= ? and end_time <= ?', @current_date.beginning_of_day, @current_date.end_of_day).order(sort_column + " " + sort_direction).
-paginate :page =>params[:page], :per_page =>3
+    @tasks = Task.where(:project_id => @project_ids).where('start_time >= ? and end_time <= ?', @current_date.beginning_of_day, @current_date.end_of_day).order(sort_column + " " + sort_direction).paginate :page =>params[:page], :per_page => (params[:per_page]).nil? ? 3 : params[:per_page]
   end
 
   def new
