@@ -1,7 +1,18 @@
 %h1 Your tasks for today
 #calendar
 = @current_date
-%table
+%table{:border => 1}
+  %tr
+    %th
+      = sortable "task.project.name",  "Projects", params[:date]
+    %th
+      = sortable "description", "Description", params[:date]
+    %th
+      = sortable "start_time", "Start time", params[:date]
+    %th
+      = sortable  "end_time", "Finish time", params[:date]
+    %th
+      Options
   - @tasks.each do |task|
     %tr
       %td

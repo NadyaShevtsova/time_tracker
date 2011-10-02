@@ -1,11 +1,13 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
+  helper_method :sort_column, :sort_direction
 
   def index
     @current_date = (params[:date]).nil? ? Date.today : Date.parse(params[:date])
 
     @project_ids = current_user.projects.collect{ |i| i.id }
-    @tasks = Task.where(:project_id => @project_ids).where('start_time >= ? and end_time <= ?', @current_date.beginning_of_day, @current_date.end_of_day).paginate :page =>params[:page], :per_page =>3
+    @tasks = Task.where(:project_id => @project_ids).where('start_time >= ? and end_time <= ?', @current_date.beginning_of_day, @current_date.end_of_day).order(sort_column + " " + sort_direction).
+paginate :page =>params[:page], :per_page =>3
   end
 
   def new
@@ -47,4 +49,13 @@ class TasksController < ApplicationController
     redirect_to(tasks_url)
   end
 
+private
+
+  def sort_column
+    Task.column_names.include?(params[:sort]) ? params[:sort] : "start_time"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
 end
