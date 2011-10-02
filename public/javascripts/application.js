@@ -7,4 +7,12 @@ $(document).ready(function() {
       window.location.href = "/?date=" + dataText;
     }  
   });
+
 });
+
+
+function add_project(){
+  new_project = prompt('Add new project');
+  $.post("/projects.js", { 'project[name]': new_project },function(){
+  });
+}

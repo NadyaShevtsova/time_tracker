@@ -4,6 +4,7 @@
   = f.label :project_name
   %br
   = f.select :project_id, Project.all.collect {|p| [p.name, p.id]}, :prompt => 'Select a project'
+  = link_to "Add new project", "javascript:add_project()"
   %br
 
   = f.label :description
