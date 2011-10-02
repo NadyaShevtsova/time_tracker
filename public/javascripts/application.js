@@ -2,5 +2,9 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 $(document).ready(function() {
-  $('#calendar').datepicker();
+  $('#calendar').datepicker({
+    onSelect: function(dataText){
+      window.location.href = "/?date=" + dataText;
+    }  
+  });
 });
