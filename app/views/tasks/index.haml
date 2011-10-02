@@ -3,6 +3,9 @@
 = @current_date
 %table{:border => 1}
   %tr
+    - if current_user.admin
+      %td
+        = "Users"
     %th
       = sortable "task.project.name",  "Projects", params[:date], params[:per_page]
     %th
@@ -12,9 +15,12 @@
     %th
       = sortable  "end_time", "Finish time", params[:date], params[:per_page]
     %th
-      Options
+      = sortable "external_link", "External_link", params[:date], params[:per_page]
   - @tasks.each do |task|
     %tr
+      - if current_user.admin
+        %td
+          = task.project.user.username
       %td
         = task.project.name 
       %td
@@ -25,7 +31,7 @@
         = task.end_time.strftime("%H:%M") 
       %td 
         = raw(auto_link(task.external_link))
-      - if @current_date == Date.today
+      - if @current_date == Date.today or current_user.admin
         %td
           = link_to 'Show', task
           %br

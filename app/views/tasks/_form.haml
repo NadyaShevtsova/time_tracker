@@ -12,11 +12,17 @@
   %br
 
   = f.label :start_time
-  = f.time_select(:start_time, :default => { :hour => 23, :minute => 59 })
+  - if current_user.admin
+    = f.datetime_select :start_time
+  - else
+    = f.time_select(:start_time, :default => { :hour => 23, :minute => 59 })
   %br
   
   = f.label :end_time
-  = f.time_select(:end_time, :default => { :hour => 23, :minute => 59 })
+  - if current_user.admin
+    = f.datetime_select :end_time
+  - else
+    = f.time_select(:end_time, :default => { :hour => 23, :minute => 59 })
   %br
 
   = f.label :external_link
