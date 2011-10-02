@@ -23,3 +23,6 @@
           = link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete
 
 = link_to 'New Task', new_task_path
+
+%p
+  =will_paginate @tasks
