@@ -1,9 +1,18 @@
 = form_for(@task) do |f|
   = f.error_messages
 
+  - if current_user.admin
+    = f.label :users
+    %br
+    = f.select :user_id, User.all.collect {|user| [user.username, user.id]}, :prompt => 'Select user'
+    %br
+
   = f.label :project_name
   %br
-  = f.select :project_id, Project.all.collect {|p| [p.name, p.id]}, :prompt => 'Select a project'
+  - if current_user.admin
+    = f.select :project_id, Project.all.collect{|p| [p.name, p.id]}, :prompt => 'Select a project'
+  - else
+    = f.select :project_id, current_user.projects.collect{|p| [p.name, p.id]}, :prompt => 'Select a project'
   = link_to "Add new project", "javascript:add_project()"
   %br
 
