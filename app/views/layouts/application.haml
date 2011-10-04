@@ -13,5 +13,5 @@
         = "Signed in as #{current_user.email}. Not you?"
         = link_to "Sign out", destroy_user_session_path, :method => :delete
       - else
-        = raw("#{link_to "Sign up", new_user_registration_path} or #{link_to "Sing in", new_user_session_path}")
+        = raw("#{link_to "Sign up", sign_up_path} or #{link_to "Sing in", sign_in_path}")
     = yield
