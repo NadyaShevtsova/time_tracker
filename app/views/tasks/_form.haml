@@ -10,10 +10,9 @@
   = f.label :project_name
   %br
   - if current_user.admin
-    = f.select :project_id, Project.all.collect{|p| [p.name, p.id]}, :prompt => 'Select a project'
+    = f.select :project_id, ["add_project"] + Project.all.collect{|p| [p.name, p.id]}, {:prompt => 'Select a project'}, {:onchange => "add_project()"}
   - else
-    = f.select :project_id, current_user.projects.collect{|p| [p.name, p.id]}, :prompt => 'Select a project'
-  = link_to "Add new project", "javascript:add_project()"
+    = f.select :project_id, ["add project"] + current_user.projects.collect{|p| [p.name, p.id]}, {:prompt => 'Select a project'}, {:onchange => "add_project()"}
   %br
 
   = f.label :description

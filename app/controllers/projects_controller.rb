@@ -7,6 +7,7 @@ class ProjectsController < ApplicationController
         format.js do
           render :update do |page|
             page << "$('#task_project_id option:last').after('<option value=#{@project.id}>#{@project.name}</option>')"
+            page << "$('#task_project_id').selectOptions('#{@project.id}', true);" 
           end
         end
       end
