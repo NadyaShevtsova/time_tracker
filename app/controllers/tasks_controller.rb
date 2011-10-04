@@ -29,7 +29,7 @@ class TasksController < ApplicationController
     @task[:user_id] = current_user.id unless current_user.admin
 
     if @task.save
-       redirect_to(@task, :notice => 'Task was succesfully created')
+       redirect_to :action => "index"
     else
        render :action => "new"
     end
