@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :check_day_for_user, :except => [:index]
   helper_method :sort_column, :sort_direction
 
   def index
@@ -18,10 +19,6 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
-  end
-
-  def show
-    @task = Task.find(params[:id]) 
   end
 
   def create
@@ -52,7 +49,7 @@ class TasksController < ApplicationController
     redirect_to(tasks_url)
   end
 
-private
+  private
 
   def sort_column
     Task.column_names.include?(params[:sort]) ? params[:sort] : "start_time"
@@ -61,4 +58,12 @@ private
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
+
+  def check_day_for_user
+    if (params[:id].blank? or Task.find(params[:id]).start_time.strftime("%Y/%m/%d") != Time.now.strftime("%Y/%m/%d")) and !current_user.admin
+      flash[:alert] = "You don't have access to this page"
+      redirect_to :action => :index
+    end
+  end
+
 end
