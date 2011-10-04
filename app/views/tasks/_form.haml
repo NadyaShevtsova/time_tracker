@@ -1,3 +1,9 @@
+- content_for :js do
+  - if current_user.admin
+    = javascript_include_tag 'initialize_datetimepicker', "jquery-ui-timepicker-addon" 
+  - else
+    = javascript_include_tag 'initialize_timepicker', "jquery.ui.timepicker"
+
 = form_for(@task) do |f|
   = f.error_messages
 
@@ -20,20 +26,16 @@
   = f.text_area :description,:rows => 4, :cols => 50
   %br
 
+  - date_format = current_user.admin ? "%d/%m/%Y %H:%M" : "%H:%M"
+
+
   = f.label :start_time
-  - if current_user.admin
-    = f.datetime_select :start_time
-  - else
-    = f.time_select(:start_time, :default => { :hour => 23, :minute => 59 })
+  = f.text_field :start_time, :value => f.object.start_time.blank? ? Time.now.strftime(date_format) : f.object.start_time.strftime(date_format)
   %br
   
   = f.label :end_time
-  - if current_user.admin
-    = f.datetime_select :end_time
-  - else
-    = f.time_select(:end_time, :default => { :hour => 23, :minute => 59 })
+  = f.text_field :end_time, :value => f.object.end_time.blank? ? Time.now.strftime(date_format) : f.object.end_time.strftime(date_format)
   %br
-
   = f.label :external_link
   = f.text_field :external_link
   %br
