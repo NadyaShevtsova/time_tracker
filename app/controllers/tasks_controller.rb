@@ -15,31 +15,46 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
-
+    render :layout => "overlay"
   end
 
   def edit
     @task = Task.find(params[:id])
+    render :layout => "overlay"
   end
 
   def create
     @task = Task.new(params[:task])
     @task[:user_id] = current_user.id unless current_user.admin
-
-    if @task.save
-       redirect_to :action => "index"
-    else
-       render :action => "new"
+    respond_to do |format|
+      format.js do
+        render :update do |page|
+          if @task.save
+            flash[:notice] = "Task added success"
+            page << "window.location.href = '#{root_path}'"
+          else
+            page << "$('.contentWrap').html('#{escape_javascript(render :template => "tasks/new")}')"
+          end
+        end
+      end
     end
   end
  
   def update
     @task = Task.find(params[:id])
 
-    if @task.update_attributes(params[:task])
-      redirect_to(@task, :notice => 'Task was successfully updated.')
-    else
-      render :action => "edit"
+    respond_to do |format|
+      format.js do
+        render :update do |page|
+          if @task.update_attributes(params[:task])
+            flash[:notice] = 'Task was successfully updated.'
+            page << "window.location.href = '#{root_path}'" 
+          else
+            page << "$('.contentWrap').html('#{escape_javascript(render :template => "tasks/edit")}')"
+          end
+        end
+      end
+
     end
   end
 
