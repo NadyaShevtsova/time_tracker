@@ -3,7 +3,7 @@
 
 $(document).ready(function() {
   $('#calendar').datepicker({
-    setDate: new Date(2008,9,03), 
+    setDate: new Date(2008,9,03),
     onSelect: function(dataText){
       window.location.href = "/?date=" + dataText;
     }
@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 
 function add_project(){
-  if ( $('#task_project_id option:selected').text() == "add_project" ) {
+  if ( $('#task_project_id option:selected').text() == "add project" ) {
     new_project = prompt('Add new project');
     $.post("/projects.js", { 'project[name]': new_project },function(){});
   }
