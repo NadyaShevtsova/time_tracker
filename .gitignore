@@ -5,3 +5,4 @@ tmp/
 *.sw?
 .rvmrc
 config/database.yml
+.sass-cache/*
