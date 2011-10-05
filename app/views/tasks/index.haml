@@ -4,10 +4,10 @@
 %table{:border => 1}
   %tr
     - if current_user.admin
-      %td
-        = "Users"
+      %th
+        = sortable "users.username", "Users", params[:date], params[:per_page]
     %th
-      = sortable "task.project.name",  "Projects", params[:date], params[:per_page]
+      = sortable "projects.name",  "Projects", params[:date], params[:per_page]
     %th
       = sortable "description", "Description", params[:date], params[:per_page]
     %th

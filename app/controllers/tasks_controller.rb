@@ -7,14 +7,15 @@ class TasksController < ApplicationController
     @current_date = (params[:date]).nil? ? Date.today : Date.parse(params[:date])
     
     if current_user.admin 
-      @tasks = Task.where('start_time >= ? and end_time <= ?', @current_date.beginning_of_day, @current_date.end_of_day).order(sort_column + " " + sort_direction).paginate :page =>params[:page], :per_page => (params[:per_page]).nil? ? 3 : params[:per_page]
+      @tasks = Task.where('start_time >= ? and end_time <= ?', @current_date.beginning_of_day, @current_date.end_of_day).paginate :page =>params[:page], :per_page => (params[:per_page]).nil? ? 3 : params[:per_page], :include => ["project","user"], :order => "#{sort_column} #{sort_direction}"
     else 
-      @tasks = current_user.tasks.where('start_time >= ? and end_time <= ?', @current_date.beginning_of_day, @current_date.end_of_day).order(sort_column + " " + sort_direction).paginate :page =>params[:page], :per_page => (params[:per_page]).nil? ? 3 : params[:per_page]
+      @tasks = current_user.tasks.where('start_time >= ? and end_time <= ?', @current_date.beginning_of_day, @current_date.end_of_day).paginate :page =>params[:page], :per_page => (params[:per_page]).nil? ? 3 : params[:per_page], :include => ["project","user"], :order => "#{sort_column} #{sort_direction}"
     end
   end
 
   def new
     @task = Task.new
+
   end
 
   def edit
@@ -52,7 +53,7 @@ class TasksController < ApplicationController
   private
 
   def sort_column
-    Task.column_names.include?(params[:sort]) ? params[:sort] : "start_time"
+    Task.column_names.include?(params[:sort]) ? params[:sort] : params[:sort] == "projects.name" ? params[:sort] : params[:sort] == "users.username" ? params[:sort] :"start_time"
   end
 
   def sort_direction
