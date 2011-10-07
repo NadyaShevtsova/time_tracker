@@ -1,4 +1,4 @@
-= form_for @task, :remote => true do |f|
+= form_for @task, :remote => true, :html => {:id => "new_task"} do |f|
   = f.error_messages
 
   - if current_user.admin
@@ -26,7 +26,7 @@
   = f.label :start_time
   = f.text_field :start_time, :value => f.object.start_time.blank? ? Time.now.strftime(date_format) : f.object.start_time.strftime(date_format)
   %br
-  
+
   = f.label :end_time
   = f.text_field :end_time, :value => f.object.end_time.blank? ? Time.now.strftime(date_format) : f.object.end_time.strftime(date_format)
   %br
@@ -34,7 +34,7 @@
   = f.text_field :external_link
   %br
 
-  = f.submit "Save"
+  = button_to_function "Save", "$('#new_task').submit()"
 
 = javascript_tag do
   - if current_user.admin
