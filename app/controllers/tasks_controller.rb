@@ -48,7 +48,7 @@ class TasksController < ApplicationController
       format.js do
         render :update do |page|
           if @task.update_attributes(params[:task])
-            flash[:notice] = "Task added success!"
+            flash[:notice] = "Task updated success!"
             page << "window.location.href = '#{root_path}'"
           else
             page << "$('.contentWrap').html('#{escape_javascript(render :template => "tasks/edit")}')"
