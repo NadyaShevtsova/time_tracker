@@ -5,12 +5,8 @@ class TasksController < ApplicationController
 
   def index
     @current_date = (params[:date]).nil? ? Date.today : Date.parse(params[:date])
-    
-    if current_user.admin 
-      @tasks = Task.where('start_time >= ? and end_time <= ?', @current_date.beginning_of_day, @current_date.end_of_day).paginate :page =>params[:page], :per_page => (params[:per_page]).nil? ? 3 : params[:per_page], :include => ["project","user"], :order => "#{sort_column} #{sort_direction}"
-    else 
-      @tasks = current_user.tasks.where('start_time >= ? and end_time <= ?', @current_date.beginning_of_day, @current_date.end_of_day).paginate :page =>params[:page], :per_page => (params[:per_page]).nil? ? 3 : params[:per_page], :include => ["project","user"], :order => "#{sort_column} #{sort_direction}"
-    end
+   
+   @tasks = (current_user.admin ? Task : current_user.tasks).where('start_time >= ? and end_time <= ?', @current_date.beginning_of_day, @current_date.end_of_day).paginate :page =>params[:page], :per_page => (params[:per_page]).nil? ? 3 : params[:per_page], :include => ["project","user"], :order => "#{sort_column} #{sort_direction}"
   end
 
   def new
