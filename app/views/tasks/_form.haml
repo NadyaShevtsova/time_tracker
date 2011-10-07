@@ -20,7 +20,7 @@
   = f.text_area :description,:rows => 4, :cols => 50
   %br
 
-  - date_format = current_user.admin ? "%d/%m/%Y %H:%M" : "%H:%M"
+  - date_format = current_user.admin ? "%m/%d/%Y %H:%M" : "%H:%M"
 
 
   = f.label :start_time
