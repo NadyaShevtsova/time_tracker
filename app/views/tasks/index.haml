@@ -42,8 +42,9 @@
 
 %p
   = will_paginate @tasks
-  Number items on page:
-  = select_tag "per_page", options_for_select([[3,3], [5,5], [10,10], ["all", 100000]], params[:per_page]), :onchange => "if(this.value){window.location=window.location.search.replace(/&per_page.*/, '') + '&per_page='+this.value;}"
+  - unless @tasks.empty?
+    Number items on page:
+    = select_tag "per_page", options_for_select([[3,3], [5,5], [10,10], ["all", 100000]], params[:per_page]), :onchange => "if(this.value){window.location=window.location.search.replace(/(&page.*|&per_page.*)/, '') + '&per_page='+this.value;}"
 
 :javascript
   $(document).ready(function() {
