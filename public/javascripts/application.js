@@ -24,3 +24,10 @@ function add_project(){
     $.post("/projects.js", { 'project[name]': new_project },function(){});
   }
 }
+
+function per_page(value) {
+  url = window.location.search.replace(/(&page.*|(&|\\?).per_page.*)/, '');
+  if (value) {
+    window.location = url + (url == '' ? '?':'&') + 'per_page=' +  value;
+  }
+}

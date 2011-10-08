@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  has_many :projects, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
 
   # Include default devise modules. Others available are:

@@ -11,9 +11,9 @@ User.create(:email => "user@user.com", :password => "user",:password_confirmatio
 User.create(:email => "test@mail.ru", :password => "test",:password_confirmation => "test", :username => "test", :admin => false)
 User.create(:email => "antony@yandex.ru", :password => "antony",:password_confirmation => "antony", :username => "antony", :admin => false)
 
-Project.create(:name => "stone", :user_id => 2)
-Project.create(:name => "test", :user_id => 3)
-Project.create(:name => "line", :user_id => 4)
+Project.create(:name => "stone")
+Project.create(:name => "test")
+Project.create(:name => "line")
 
 Task.create(:description => "added new stone", :start_time => "2011-10-07 10:00:00", :end_time => "2011-10-07 11:41:00", :external_link => "http://mail.ru", :project_id => 1, :user_id => 2)
 Task.create(:description => "new test", :start_time => "2011-10-06 09:40:00", :end_time => "2011-10-06 10:35:00", :external_link => "http://gmail.com", :project_id => 2, :user_id => 3) 
