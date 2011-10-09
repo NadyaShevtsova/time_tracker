@@ -12,10 +12,6 @@ class TasksController < ApplicationController
   def new
     @task = Task.new
     render :layout => "overlay"
-<<<<<<< HEAD
-
-=======
->>>>>>> overlay
   end
 
   def edit
@@ -34,13 +30,8 @@ class TasksController < ApplicationController
       format.js do
         render :update do |page|
           if @task.save
-<<<<<<< HEAD
-            flash[:notice] = "Task added success!"
-            page << "window.location.href = '#{root_path}'"
-=======
             flash[:notice] = "Task added success"
             page << "window.location.href = '#{root_path(:date => @task.start_time.strftime("%m/%d/%Y"))}'"
->>>>>>> overlay
           else
             page << "$('.contentWrap').html('#{escape_javascript(render :template => "tasks/new")}')"
           end
@@ -51,25 +42,16 @@ class TasksController < ApplicationController
  
   def update
     @task = Task.find(params[:id])
-<<<<<<< HEAD
-
-=======
     
     if defined? @project
       params[:task][:project_id] = @project.id
     end
->>>>>>> overlay
     respond_to do |format|
       format.js do
         render :update do |page|
           if @task.update_attributes(params[:task])
-<<<<<<< HEAD
-            flash[:notice] = "Task updated success!"
-            page << "window.location.href = '#{root_path}'"
-=======
             flash[:notice] = 'Task was successfully updated.'
             page << "window.location.href = '#{root_path(:date => @task.start_time.strftime("%m/%d/%Y"))}'" 
->>>>>>> overlay
           else
             page << "$('.contentWrap').html('#{escape_javascript(render :template => "tasks/edit")}')"
           end
