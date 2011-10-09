@@ -32,19 +32,28 @@
         = raw(auto_link(task.external_link))
       - if @current_date == Date.today or current_user.admin
         %td
+<<<<<<< HEAD
           = link_to 'Edit', edit_task_path(task), :rel=>"#overlay"
           %br
           = link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete
 
 = link_to 'New Task', new_task_path, :rel=>"#overlay"
 
+=======
+          = link_to 'Edit', edit_task_path(task), :rel => "#overlay"
+          %br
+          = link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete
+
+= link_to 'New Task', new_task_path, :rel => "#overlay"
+>>>>>>> overlay
 .apple_overlay#overlay
   .contentWrap
 
 %p
   = will_paginate @tasks
-  Number items on page:
-  = select_tag "per_page", options_for_select([[3,3], [5,5], [10,10], ["all", 100000]], params[:per_page]), :onchange => "if(this.value){window.location=window.location.search.replace(/&per_page.*/, '') + '&per_page='+this.value;}"
+  - unless @tasks.empty?
+    Number items on page:
+    = select_tag "per_page", options_for_select([[3,3], [5,5], [10,10], ["all", 100000]], params[:per_page]), :onchange => "per_page(this.value)"
 
 :javascript
   $(document).ready(function() {
