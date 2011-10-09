@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :new_project, :only => [:create, :update]
   before_filter :check_day_for_user, :except => [:index, :new, :create]
   helper_method :sort_column, :sort_direction
 
@@ -21,6 +21,10 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(params[:task])
+    
+    if defined? @project
+      @task.project_id = @project.id
+    end
     @task[:user_id] = current_user.id unless current_user.admin
     respond_to do |format|
       format.js do
@@ -38,19 +42,21 @@ class TasksController < ApplicationController
  
   def update
     @task = Task.find(params[:id])
-
+    
+    if defined? @project
+      params[:task][:project_id] = @project.id
+    end
     respond_to do |format|
       format.js do
         render :update do |page|
           if @task.update_attributes(params[:task])
             flash[:notice] = 'Task was successfully updated.'
-            page << "window.location.href = '#{rroot_path(:date => @task.start_time.strftime("%m/%d/%Y"))}'" 
+            page << "window.location.href = '#{root_path(:date => @task.start_time.strftime("%m/%d/%Y"))}'" 
           else
             page << "$('.contentWrap').html('#{escape_javascript(render :template => "tasks/edit")}')"
           end
         end
       end
-
     end
   end
 
@@ -76,6 +82,13 @@ class TasksController < ApplicationController
       flash[:alert] = "You don't have access to this page"
       redirect_to :action => :index
     end
+  end
+
+  def new_project
+     unless params[:new_project].blank?
+       @project = Project.new(:name => params[:new_project])
+       @project.save
+     end
   end
 
 end

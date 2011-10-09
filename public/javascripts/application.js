@@ -20,8 +20,11 @@ $(function() {
 
 function add_project(){
   if ( $('#task_project_id option:selected').text() == "add_project" ) {
-    new_project = prompt('Add new project');
-    $.post("/projects.js", { 'project[name]': new_project },function(){});
+     $('.new_project').removeClass("hide"); 
+  }
+  else {
+    $('.new_project').addClass("hide");
+    $('.new_project').val('');
   }
 }
 

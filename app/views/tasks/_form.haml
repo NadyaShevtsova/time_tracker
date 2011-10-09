@@ -2,7 +2,7 @@
   = f.error_messages
 
   - if current_user.admin
-    = f.label :users
+    = f.label :user_id, "Users"
     %br
     = f.select :user_id, User.all.collect {|user| [user.username, user.id]}, :prompt => 'Select user'
     %br
@@ -10,6 +10,8 @@
   = f.label :project_name
   %br
   = f.select :project_id, ["add_project"] + (current_user.admin ? Project: current_user).all.collect{|p| [p.name, p.id]}, {:prompt => 'Select a project'}, {:onchange => "add_project()"}
+  .new_project.hide
+    = text_field_tag 'new_project', '', :placeholder => "enter new project name"
   %br
 
   = f.label :description
