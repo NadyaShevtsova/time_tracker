@@ -18,10 +18,12 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
+    @task.build_project
     render :layout => "overlay"
   end
 
   def create
+    params[:task].delete("project_attributes") if params[:task][:project_attributes][:name].blank?
     @task = Task.new(params[:task])
     
     @task[:user_id] = current_user.id unless current_user.admin
@@ -42,6 +44,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     
+    params[:task].delete("project_attributes") if params[:task][:project_attributes][:name].blank?
     respond_to do |format|
       format.js do
         render :update do |page|
