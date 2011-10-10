@@ -5,12 +5,18 @@
     = f.label :user_id, "Users"
     %br
     = f.select :user_id, User.all.collect {|user| [user.username, user.id]}, :prompt => 'Select user'
-    %br
-
-  = f.label :project_name
   %br
-  = f.select :project_id, ["add_project"] + Project.all.collect{|p| [p.name, p.id]}, {:prompt => 'Select a project'}, {:onchange => "add_project()"}
-  .new_project.hide
+
+  = f.fields_for :project do |project|
+    = project.label :name
+    %br
+    = project.text_field :name
+
+
+  -#= f.label :project_name
+  %br
+  -#= f.select :project_id, ["add_project"] + Project.all.collect{|p| [p.name, p.id]}, {:prompt => 'Select a project'}, {:onchange => "add_project()"}
+  -#.new_project.hide
     = text_field_tag 'new_project', '', :placeholder => "enter new project name"
   %br
 

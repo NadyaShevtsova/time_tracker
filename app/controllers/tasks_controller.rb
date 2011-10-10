@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :new_project, :only => [:create, :update]
+  #before_filter :new_project, :only => [:create, :update]
   before_filter :check_day_for_user, :except => [:index, :new, :create]
   helper_method :sort_column, :sort_direction
 
@@ -12,6 +12,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    @task.build_project
     render :layout => "overlay"
   end
 
@@ -23,9 +24,6 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(params[:task])
     
-    if defined? @project
-      @task.project_id = @project.id
-    end
     @task[:user_id] = current_user.id unless current_user.admin
     respond_to do |format|
       format.js do
@@ -44,9 +42,6 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     
-    if defined? @project
-      params[:task][:project_id] = @project.id
-    end
     respond_to do |format|
       format.js do
         render :update do |page|
