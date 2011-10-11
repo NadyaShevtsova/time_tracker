@@ -35,11 +35,11 @@ $(function() {
 
 function add_project(){
   if ( $('#task_project_id option:selected').text() == "add_project" ) {
-     $('.new_project').removeClass("hide"); 
+     $('.new_project').removeClass("hide");
   }
   else {
     $('.new_project').addClass("hide");
-    $('.new_project').val('');
+    $('#task_project_attributes_name').attr('value', '');
   }
 }
 

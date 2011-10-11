@@ -15,5 +15,6 @@ gem 'validates_timeliness', '~> 3.0.2'
 gem 'jquery-rails'
 gem 'will_paginate'
 gem 'formtastic'
+gem 'faker'
 
 gem 'ruby-debug'
