@@ -44,7 +44,7 @@ function add_project(){
 }
 
 function per_page(value) {
-  url = window.location.search.replace(/(&page.*|(&|\\?).per_page.*)/, '');
+  url = window.location.search.replace(/(\\?page.*|(&|\\?).per_page.*)/, '');
   if (value) {
     window.location = url + (url == '' ? '?':'&') + 'per_page=' +  value;
   }
