@@ -32,7 +32,7 @@ class TasksController < ApplicationController
         render :update do |page|
           if @task.save
             flash[:notice] = "Task added success"
-            page << "window.location.href = '#{root_path(:date => @task.start_time.strftime("%m/%d/%Y"))}'"
+            page << "window.location.href = '#{root_path(:date => @task.start_time.strftime("%Y/%m/%d"))}'"
           else
             page << "$('.contentWrap').html('#{escape_javascript(render :template => "tasks/new")}')"
           end
