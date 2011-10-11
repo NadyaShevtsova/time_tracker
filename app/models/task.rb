@@ -9,11 +9,19 @@ class Task < ActiveRecord::Base
   validates :external_link, :format => {:with => /((http|https):\/\/|[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+.*)$/}, :allow_blank => true
 
   before_validation :check_http
+  validate :check_equality_day 
+
 
   private
 
   def check_http
      self.external_link = "http://#{self.external_link}" if self.external_link.grep(/(http:\/\/|https:\/\/)/).empty? and !self.external_link.blank?
+  end
+
+  def check_equality_day
+    if self.start_time.to_date != self.end_time.to_date
+      errors.add(:end_time, "date must be equal start time date")
+    end
   end
 
 end
