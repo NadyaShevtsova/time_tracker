@@ -8,6 +8,8 @@
     %th
       = sortable "projects.name",  "Projects", params[:date], params[:per_page]
     %th
+      = sortable "task_name",  "Task name", params[:date], params[:per_page]
+    %th
       = sortable "description", "Description", params[:date], params[:per_page]
     %th
       = sortable "start_time", "Start time", params[:date], params[:per_page]
@@ -22,6 +24,8 @@
           = task.user.username
       %td
         = task.project.name 
+      %td
+        =task.task_name
       %td
         = truncate(task.description, :length => 60)
       %td

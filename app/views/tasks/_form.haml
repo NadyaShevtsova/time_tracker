@@ -10,14 +10,21 @@
   = f.label :project_name
   %br
   = f.select :project_id, ["add_project"] + Project.all.sort_by{ |k| k['name']}.collect{|p| [p.name, p.id]}, {:prompt => 'Select a project'}, {:onchange => "add_project()"}
-  
+  %br
+
   .new_project.hide
     = f.fields_for :project do |project|
-      = project.label :name
+      = project.label :name, "Enter new project"
       %br
       = project.text_field :name
 
   %br
+
+  = f.label :task_name
+  %br
+  = f.text_field :task_name
+  %br
+
 
   = f.label :description
   %br
