@@ -1,4 +1,8 @@
-%h1 Your tasks for today
+%h4 Reports for week
+= raw show_weeks if current_user.admin
+
+%h2 Your tasks for today
+
 #calendar
 %table{:border => 1}
   %tr
@@ -53,6 +57,7 @@
 :javascript
   $(document).ready(function() {
     $('#calendar').datepicker({
+      firstDay: 1, 
       defaultDate: new Date('#{params[:date]}'),
       onSelect: function(dataText){
         window.location.href = "/?date=" + dataText;
