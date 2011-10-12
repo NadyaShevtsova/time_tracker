@@ -1,4 +1,6 @@
 TimeTracker::Application.routes.draw do
+  get "reports/index"
+
   get "tasks/index"
 
   devise_for :users

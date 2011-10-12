@@ -4,6 +4,7 @@ class Task < ActiveRecord::Base
 
   accepts_nested_attributes_for :project
 
+  validates :task_name, :presence => true, :uniqueness => true
   validates :description, :start_time, :end_time,  :user_id, :presence => true
   validates_datetime :end_time, :after => :start_time, :after_message => "must be at least Start time"
   validates :external_link, :format => {:with => /((http|https):\/\/|[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+.*)$/}, :allow_blank => true
