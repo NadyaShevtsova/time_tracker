@@ -8,7 +8,12 @@ TimeTracker::Application.routes.draw do
     get "sign_up", :to => "devise/registrations#new"
   end
 
-  resources :tasks, :projects
+  resources :projects
+  resources :tasks do
+    collection do
+      get :task_name_list
+    end
+  end
 
   root :to => 'tasks#index'
 end

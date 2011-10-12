@@ -66,6 +66,14 @@ class TasksController < ApplicationController
     redirect_to(tasks_url)
   end
 
+  def task_name_list
+    list = []
+    (current_user.admin ? Task : current_user.tasks).where("task_name LIKE ?", "%" + params["term"] + "%").each do |task|
+      list << {:label => task.task_name}
+    end
+    render(:json => list)
+  end
+
   private
 
   def sort_column
