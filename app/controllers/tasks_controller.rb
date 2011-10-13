@@ -3,11 +3,11 @@ class TasksController < ApplicationController
   #before_filter :new_project, :only => [:create, :update]
   before_filter :check_day_for_user, :except => [:index, :new, :create]
   before_filter :transfer_options, :only => [:index]
-  helper_method :sort_column, :sort_direction
+  helper_method :sort_direction, :sort_column
 
   def index
     @current_date = (params[:date]).nil? ? Date.today : Date.parse(params[:date])
-   @tasks = (current_user.admin ? Task : current_user.tasks).where('start_time >= ? and end_time <= ?', @current_date.beginning_of_day, @current_date.end_of_day).paginate :page => params[:page], :per_page => session[current_user.id][:per_page], :include => ["project","user"], :order => "#{sort_column} #{sort_direction}"
+   @tasks = (current_user.admin ? Task : current_user.tasks).where('start_time >= ? and end_time <= ?', @current_date.beginning_of_day, @current_date.end_of_day).paginate :page => params[:page], :per_page => session["#{current_user.id}_per_page"][:per_page], :include => ["project","user"], :order => "#{session["#{current_user.id}_sort"]} #{session["#{current_user.id}_direction"]}"
   end
 
   def new
@@ -76,20 +76,28 @@ class TasksController < ApplicationController
 
   private
   
-  def transfer_options
-    unless params[:per_page].blank?
-      session[current_user.id] = {:per_page => params[:per_page]}
+  def sort_column
+    if params[:sort].blank? or (params[:sort].blank? and !Task.column_names.include?(params[:sort]))
+      session["#{current_user.id}_sort"] ||= "start_time"
     else
-      session[current_user.id] ||= {:per_page => 3}
+      session["#{current_user.id}_sort"] = params[:sort]
     end
   end
 
-  def sort_column
-    Task.column_names.include?(params[:sort]) ? params[:sort] : params[:sort] == "projects.name" ? params[:sort] : params[:sort] == "users.username" ? params[:sort] :"start_time"
+  def sort_direction
+    if params[:direction].blank? or !%w[asc desc].include?(params[:direction])
+      session["#{current_user.id}_direction"] ||= "asc"
+    else
+      session["#{current_user.id}_direction"] = params[:direction]
+    end
   end
 
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  def transfer_options
+    unless params[:per_page].blank?
+      session["#{current_user.id}_per_page"] = {:per_page => params[:per_page]}
+    else
+      session["#{current_user.id}_per_page"] ||= {:per_page => 3}
+    end
   end
 
   def check_day_for_user
