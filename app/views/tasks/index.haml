@@ -8,19 +8,19 @@
   %tr
     - if current_user.admin
       %th
-        = sortable "users.username", "Users", params[:date], params[:per_page]
+        = sortable "users.username", "Users", params[:date]
     %th
-      = sortable "projects.name",  "Projects", params[:date], params[:per_page]
+      = sortable "projects.name",  "Projects", params[:date]
     %th
-      = sortable "task_name",  "Task name", params[:date], params[:per_page]
+      = sortable "task_name",  "Task name", params[:date]
     %th
-      = sortable "description", "Description", params[:date], params[:per_page]
+      = sortable "description", "Description", params[:date]
     %th
-      = sortable "start_time", "Start time", params[:date], params[:per_page]
+      = sortable "start_time", "Start time", params[:date]
     %th
-      = sortable  "end_time", "Finish time", params[:date], params[:per_page]
+      = sortable  "end_time", "Finish time", params[:date]
     %th
-      = sortable "external_link", "External_link", params[:date], params[:per_page]
+      = sortable "external_link", "External_link", params[:date]
   - @tasks.each do |task|
     %tr
       - if current_user.admin
