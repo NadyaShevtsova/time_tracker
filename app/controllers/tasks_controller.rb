@@ -2,12 +2,12 @@ class TasksController < ApplicationController
   before_filter :authenticate_user!
   #before_filter :new_project, :only => [:create, :update]
   before_filter :check_day_for_user, :except => [:index, :new, :create]
+  before_filter :transfer_options, :only => [:index]
   helper_method :sort_column, :sort_direction
 
   def index
     @current_date = (params[:date]).nil? ? Date.today : Date.parse(params[:date])
-   
-   @tasks = (current_user.admin ? Task : current_user.tasks).where('start_time >= ? and end_time <= ?', @current_date.beginning_of_day, @current_date.end_of_day).paginate :page => params[:page], :per_page => (params[:per_page]).nil? ? 3 : params[:per_page], :include => ["project","user"], :order => "#{sort_column} #{sort_direction}"
+   @tasks = (current_user.admin ? Task : current_user.tasks).where('start_time >= ? and end_time <= ?', @current_date.beginning_of_day, @current_date.end_of_day).paginate :page => params[:page], :per_page => session[current_user.id][:per_page], :include => ["project","user"], :order => "#{sort_column} #{sort_direction}"
   end
 
   def new
@@ -75,6 +75,14 @@ class TasksController < ApplicationController
   end
 
   private
+  
+  def transfer_options
+    unless params[:per_page].blank?
+      session[current_user.id] = {:per_page => params[:per_page]}
+    else
+      session[current_user.id] ||= {:per_page => 3}
+    end
+  end
 
   def sort_column
     Task.column_names.include?(params[:sort]) ? params[:sort] : params[:sort] == "projects.name" ? params[:sort] : params[:sort] == "users.username" ? params[:sort] :"start_time"
