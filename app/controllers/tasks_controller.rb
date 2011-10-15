@@ -72,6 +72,20 @@ class TasksController < ApplicationController
     render(:json => list)
   end
 
+  def details
+    @details = Task.where(:start_time => DateTime.parse(params[:start_date])..DateTime.parse(params[:end_date]),:user_id => params[:user_id], :project_id => params[:project_id], :task_name => params[:task_name])
+   
+    respond_to do |format|
+      format.js do
+        render :update do |page|
+          page << "$('tr##{params[:id]}_#{params[:user_id]}_#{params[:project_id]} a.link_to_ajax').addClass('hide')"
+          page << "$('tr##{params[:id]}_#{params[:user_id]}_#{params[:project_id]} a.link_to_func').removeClass('hide')"
+          page << "$('tr##{params[:id]}_#{params[:user_id]}_#{params[:project_id]}').after('#{escape_javascript(render :partial => "details")}')"
+        end
+      end
+    end
+  end
+
   private
 
   def sort_column
@@ -116,4 +130,6 @@ class TasksController < ApplicationController
      end
   end
 
-end
+ 
+  end
+

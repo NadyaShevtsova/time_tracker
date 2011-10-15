@@ -14,6 +14,7 @@ TimeTracker::Application.routes.draw do
   resources :tasks do
     collection do
       get :task_name_list
+      get :details
     end
   end
 
