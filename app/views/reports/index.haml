@@ -1,14 +1,26 @@
+= link_to 'Back', :back
+
 %h3 Report for week
-%table{:border => 1}
-  %tr
-    %th User
-    %th Task name
-    %th Description
-    %th "Start time"
-  - @list.each do |list|
-    %tr
-      %td= list.user.username
-      %td=list.task_name
-      %td= truncate(list.description, :length => 60)
-      %td= list.start_time
-     
+- Project.all.sort_by{ |k| k['name']}.each do |project|
+  = project.name
+  - User.all.each do |user|
+    %table{:border => 1}
+      %tr
+        %td
+          = user.username
+        %td
+          %table{:border => 1}
+            %tr
+              %th Task name
+              %th "Spent time"
+              %th
+            - project.tasks.where(:start_time => DateTime.parse(params[:start_date])..DateTime.parse(params[:end_date]),:user_id => user).group(:task_name).select("tasks.*, SUM(TIME_TO_SEC(TIMEDIFF(end_time, start_time))) as spent_time").each do |task|
+              %tr
+                %td
+                  =task.task_name
+                %td
+                  = Time.at(task.spent_time.to_i).utc.strftime("%H:%M")
+                %td
+                  = "picture"
+
+= link_to 'Back', :back
