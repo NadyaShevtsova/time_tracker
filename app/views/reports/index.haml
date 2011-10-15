@@ -3,13 +3,13 @@
 %h3 Report for week
 - Project.all.sort_by{ |k| k['name']}.each do |project|
   = project.name
-  - User.all.each do |user|
+  - User.all(:include => :tasks, :conditions => ["tasks.id IS NOT NULL AND tasks.project_id = ?", project.id]).each do |user|
     %table{:border => 1}
       %tr
         %td
           = user.username
         %td
-          %table{:border => 1}
+          %table{:border => 1, :width => '600'}
             %tr
               %th Task name
               %th "Spent time"
