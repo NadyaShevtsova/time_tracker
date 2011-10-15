@@ -3,7 +3,6 @@ class TasksController < ApplicationController
   #before_filter :new_project, :only => [:create, :update]
   before_filter :check_day_for_user, :except => [:index, :new, :create]
   before_filter :transfer_options, :only => [:index]
-  helper_method :sort_direction, :sort_column
 
   def index
     @current_date = (params[:date]).nil? ? Date.today : Date.parse(params[:date])
@@ -25,7 +24,7 @@ class TasksController < ApplicationController
   def create
     params[:task].delete("project_attributes") if params[:task][:project_attributes] and params[:task][:project_attributes][:name].blank?
     @task = Task.new(params[:task])
-    
+
     @task[:user_id] = current_user.id unless current_user.admin
     respond_to do |format|
       format.js do
@@ -40,17 +39,17 @@ class TasksController < ApplicationController
       end
     end
   end
- 
+
   def update
     @task = Task.find(params[:id])
-    
+
     params[:task].delete("project_attributes") if params[:task][:project_attributes][:name].blank?
     respond_to do |format|
       format.js do
         render :update do |page|
           if @task.update_attributes(params[:task])
             flash[:notice] = 'Task was successfully updated.'
-            page << "window.location.href = '#{root_path(:date => @task.start_time.strftime("%m/%d/%Y"))}'" 
+            page << "window.location.href = '#{root_path(:date => @task.start_time.strftime("%m/%d/%Y"))}'"
           else
             page << "$('.contentWrap').html('#{escape_javascript(render :template => "tasks/edit")}')"
           end
@@ -75,7 +74,7 @@ class TasksController < ApplicationController
   end
 
   private
-  
+
   def sort_column
     if params[:sort].blank? or (params[:sort].blank? and !Task.column_names.include?(params[:sort]))
       session["#{current_user.id}_sort"] ||= "start_time"
@@ -98,6 +97,10 @@ class TasksController < ApplicationController
     else
       session["#{current_user.id}_per_page"] ||= {:per_page => 3}
     end
+
+    sort_column
+    sort_direction
+
   end
 
   def check_day_for_user
