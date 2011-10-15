@@ -1,6 +1,5 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
-  #before_filter :new_project, :only => [:create, :update]
   before_filter :check_day_for_user, :except => [:index, :new, :create]
   before_filter :transfer_options, :only => [:index]
 
