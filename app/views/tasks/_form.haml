@@ -53,3 +53,10 @@
   - else
     $('#task_start_time, #task_end_time').timepicker()
 
+:javascript
+
+  $(function() {
+    $( "#task_task_name" ).autocomplete({
+      source: "tasks/task_name_list.js",
+    });
+  });
