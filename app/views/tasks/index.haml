@@ -44,15 +44,17 @@
           %br
           = link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete
 
-= link_to 'New Task', new_task_path, :rel=>"#overlay"
-.apple_overlay#overlay
-  .contentWrap
+%div{:class => "new_task_link #{(@current_date == Date.today or current_user.admin) ? '' : 'hide'}"}
+  = link_to 'New Task', new_task_path, :rel=>"#overlay"
+  .apple_overlay#overlay
+    .contentWrap
 
 %p
   = will_paginate @tasks
   - unless @tasks.empty?
     Number items on page:
     = select_tag "per_page", options_for_select([[3,3], [5,5], [10,10], ["all", 100000]], session["#{current_user.id}_per_page"][:per_page]), :onchange => "per_page(this.value)"
+
 
 :javascript
   $(document).ready(function() {
