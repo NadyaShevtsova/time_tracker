@@ -21,7 +21,8 @@ class TasksController < ApplicationController
   end
 
   def create
-    params[:task].delete("project_attributes") if params[:task][:project_attributes] and params[:task][:project_attributes][:name].blank?
+    params[:task].delete("project_attributes") unless params[:task][:project_id].eql?(:add_project)
+
     @task = Task.new(params[:task])
 
     @task[:user_id] = current_user.id unless current_user.admin

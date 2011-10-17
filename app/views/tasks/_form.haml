@@ -11,8 +11,8 @@
   %br
   = f.select :project_id, ["add_project"] + Project.all.sort_by{ |k| k['name']}.collect{|p| [p.name, p.id]}, {:prompt => 'Select a project'}, {:onchange => "add_project()"}
   %br
-
-  .new_project.hide
+   
+  %div{:class => "new_project #{(!params[:task].blank? and params[:task][:project_id].eql?("add_project")) ? '' : 'hide'}"}
     = f.fields_for :project do |project|
       = project.label :name, "Enter new project"
       %br
