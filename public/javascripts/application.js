@@ -34,8 +34,4 @@ function per_page(value) {
   }
 }
 
-$(function() {
-  $( "#task_task_name" ).autocomplete({
-    source: "tasks/task_name_list.js",
-  });
-});
+

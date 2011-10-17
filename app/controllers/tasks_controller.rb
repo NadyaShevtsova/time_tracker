@@ -21,7 +21,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    params[:task].delete("project_attributes") unless params[:task][:project_id].eql?(:add_project)
+    params[:task].delete("project_attributes") unless params[:task][:project_id].eql?("add_project")
 
     @task = Task.new(params[:task])
 
@@ -33,6 +33,7 @@ class TasksController < ApplicationController
             flash[:notice] = "Task added success"
             page << "window.location.href = '#{root_path(:date => @task.start_time.strftime("%Y/%m/%d"))}'"
           else
+            @task.build_project
             page << "$('.contentWrap').html('#{escape_javascript(render :template => "tasks/new")}')"
           end
         end
