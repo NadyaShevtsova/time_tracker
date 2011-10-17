@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :check_day_for_user, :except => [:index, :new, :create]
+  before_filter :check_day_for_user, :except => [:index, :new, :create, :task_name_list]
   before_filter :transfer_options, :only => [:index]
 
   def index
@@ -16,7 +16,7 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
-    @task.build_project
+    @task.build_projectTask description
     render :layout => "overlay"
   end
 
