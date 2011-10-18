@@ -27,11 +27,12 @@ function add_project(){
   }
 }
 
-function per_page(value) {
-  url = window.location.search.replace(/(\\?page.*|(&|\\?).per_page.*)/, '');
+function per_page(value, direction, sort) {
+  url = window.location.search.replace(/(&|\\?).per_page=\d*/g, '').replace(/\\?page=\d*/g, '').replace(/(&|\\?).direction=(asc|desc)/, '').replace(/(&|\\?).sort=\w*/, '');
   if (value) {
-    window.location = url + (url == '' ? '?':'&') + 'per_page=' +  value;
+    window.location = url + (url == '' ? '?':'&') + 'per_page=' +  value + "&direction=" + direction + "&sort=" + sort;
   }
+
 }
 
 
