@@ -21,7 +21,7 @@ class Task < ActiveRecord::Base
 
   def check_equality_day
     if self.start_time.to_date != self.end_time.to_date
-      errors.add(:end_time, "date must be equal start time date")
+      errors.add(:end_time, ": run-time should take only one day")
     end
   end
 
