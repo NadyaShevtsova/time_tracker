@@ -2,23 +2,24 @@
 
 %h3 Report for week
 - Project.all.sort_by{ |k| k['name']}.each do |project|
-  = project.name
+  %div.report_project
+    = project.name
   - User.all(:include => :tasks, :conditions => ["tasks.id IS NOT NULL AND tasks.project_id = ?", project.id]).each do |user|
-    %table{:border => 1}
+    %table.table_users
       %tr
-        %td
+        %td.table_users_td_width
           = user.username
         %td
-          %table{:border => 1, :width => '600'}
+          %table.report_tasks{:border => 1}
             %tr
               %th Task name
               %th "Spent time"
               %th
             - project.tasks.where(:start_time => DateTime.parse(params[:start_date])..DateTime.parse(params[:end_date]),:user_id => user).group(:task_name).select("tasks.*, SUM(TIME_TO_SEC(TIMEDIFF(end_time, start_time))) as spent_time").each do |task|
               %tr{:id => "#{task.id}_#{task.user_id}_#{task.project_id}"}
-                %td
+                %td.report_tasks_td_task_name
                   =task.task_name
-                %td
+                %td.report_tasks_td_time
                   = Time.at(task.spent_time.to_i).utc.strftime("%H:%M")
                 %td
                   = link_to image_tag("down_arrow.gif"), details_tasks_path(:start_date => params[:start_date], :end_date => params[:end_date], :user_id => task.user_id, :project_id => task.project_id, :id => task.id, :task_name => task.task_name), :remote => true, :class => "link_to_ajax"

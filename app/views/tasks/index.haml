@@ -1,5 +1,6 @@
-%h4 Reports for week
-= raw show_weeks if current_user.admin
+- if current_user.admin
+  %h4 Reports for week
+  = raw show_weeks 
 
 %h2 Your tasks for today
 

@@ -1,5 +1,5 @@
 - @details.each do |cur|
-  %tr{:class => "#{params[:id]}_#{params[:user_id]}_#{params[:project_id]}_details"}
+  %tr.report_tasks_td_ditails{:class => "#{params[:id]}_#{params[:user_id]}_#{params[:project_id]}_details"}
     %td
     %td
       = cur.description
