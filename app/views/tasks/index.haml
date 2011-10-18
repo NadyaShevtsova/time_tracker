@@ -54,7 +54,7 @@
   = will_paginate @tasks
   - unless @tasks.empty?
     Number items on page:
-    = select_tag "per_page", options_for_select([[3,3], [5,5], [10,10], ["all", 100000]], session["#{current_user.id}_per_page"][:per_page]), :onchange => "per_page(this.value)"
+    = select_tag "per_page", options_for_select([[3,3], [5,5], [10,10], ["all", 100000]], params[:per_page]), :onchange => "per_page(this.value)"
 
 
 :javascript
@@ -63,7 +63,7 @@
       firstDay: 1, 
       defaultDate: new Date('#{params[:date]}'),
       onSelect: function(dataText){
-        window.location.href = "/?date=" + dataText;
+        window.location.href = "/?date=" + dataText + "&per_page=#{params[:per_page]}";
       }
     });
   });
