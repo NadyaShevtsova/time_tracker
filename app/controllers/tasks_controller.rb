@@ -31,7 +31,7 @@ class TasksController < ApplicationController
         render :update do |page|
           if @task.save
             flash[:notice] = "Task added success"
-            page << "window.location.href = '#{root_path(:date => @task.start_time.strftime("%Y/%m/%d"))}'"
+            page << "window.location.href = '#{root_path(:date => @task.start_time.strftime("%Y/%m/%d"))}' + '&sort=#{params[:sort]}' + '&direction=#{params[:direction]}'"
           else
             @task.build_project
             page << "$('.contentWrap').html('#{escape_javascript(render :template => "tasks/new")}')"
@@ -50,7 +50,7 @@ class TasksController < ApplicationController
         render :update do |page|
           if @task.update_attributes(params[:task])
             flash[:notice] = 'Task was successfully updated.'
-            page << "window.location.href = '#{root_path(:date => @task.start_time.strftime("%m/%d/%Y"))}'"
+            page << "window.location.href = '#{root_path(:date => @task.start_time.strftime("%m/%d/%Y"))}' + '&sort=#{params[:sort]}' + '&direction=#{params[:direction]}'"
           else
             page << "$('.contentWrap').html('#{escape_javascript(render :template => "tasks/edit")}')"
           end
