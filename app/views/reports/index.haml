@@ -5,9 +5,8 @@
   %div.report_project
     = project.name
   - show_message = false
-  - User.all(:include => :tasks, :conditions => ["tasks.id IS NOT NULL AND tasks.project_id = ?", project.id]).each do |user|
-    - unless  project.tasks.where(:start_time => DateTime.parse(params[:start_date])..DateTime.parse(params[:end_date]),:user_id => user).empty?
-      - show_message = true
+  - unless  project.tasks.where(:start_time => DateTime.parse(params[:start_date])..DateTime.parse(params[:end_date])).empty?
+    - User.all(:include => :tasks, :conditions => ["tasks.id IS NOT NULL AND tasks.project_id = ?", project.id]).each do |user|
       %table.table_users
         %tr
           %td.table_users_td_width
@@ -28,13 +27,10 @@
                     = link_to image_tag("down_arrow.gif"), details_tasks_path(:start_date => params[:start_date], :end_date => params[:end_date], :user_id => task.user_id, :project_id => task.project_id, :id => task.id, :task_name => task.task_name), :remote => true, :class => "link_to_ajax"
                     - id = "#{task.id}_#{task.user_id}_#{task.project_id}"
                     = link_to_function image_tag("up_arrow.gif"), "add_and_remove_arrow_button('#{id}') ", :class => "link_to_func hide"
-    - else
-      - if show_message
-        - next
-      - else
-        = "No tasks"
-        - show_message = true
-    
+  - else
+    = "No tasks"
+
+%br    
 = link_to 'Back', :back
 
 
