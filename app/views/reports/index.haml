@@ -26,7 +26,8 @@
                     = Time.at(task.spent_time.to_i).utc.strftime("%H:%M")
                   %td
                     = link_to image_tag("down_arrow.gif"), details_tasks_path(:start_date => params[:start_date], :end_date => params[:end_date], :user_id => task.user_id, :project_id => task.project_id, :id => task.id, :task_name => task.task_name), :remote => true, :class => "link_to_ajax"
-                    = link_to_function image_tag("up_arrow.gif"), "$(\".#{task.id}_#{task.user_id}_#{task.project_id}_details\").remove(); $(\"##{task.id}_#{task.user_id}_#{task.project_id} a.link_to_func\").addClass('hide'); $(\"##{task.id}_#{task.user_id}_#{task.project_id} a.link_to_ajax\").removeClass('hide');", :class => "link_to_func hide"
+                    - id = "#{task.id}_#{task.user_id}_#{task.project_id}"
+                    = link_to_function image_tag("up_arrow.gif"), "add_and_remove_arrow_button('#{id}') ", :class => "link_to_func hide"
     - else
       - if show_message
         - next
@@ -35,3 +36,12 @@
         - show_message = true
     
 = link_to 'Back', :back
+
+
+:javascript
+
+  function add_and_remove_arrow_button(id) {
+    $('.'+id+'_details').remove();
+    $("#" + id + " a.link_to_func").addClass('hide'); 
+    $("#" + id + " a.link_to_ajax").removeClass('hide');    
+  };
