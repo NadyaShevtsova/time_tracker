@@ -46,7 +46,7 @@
           = link_to 'Destroy', task_path(task, transfer_params), :confirm => 'Are you sure?', :method => :delete
 
 %div{:class => "new_task_link #{(@current_date == Date.today or current_user.admin) ? '' : 'hide'}"}
-  = link_to 'New Task', new_task_path(transfer_params), :rel=>"#overlay"
+  = link_to 'New Task', new_task_path(transfer_params, :date => params[:date]), :rel=>"#overlay"
   .apple_overlay#overlay
     .contentWrap
 

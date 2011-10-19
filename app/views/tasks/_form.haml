@@ -33,11 +33,11 @@
 
 
   = f.label :start_time
-  = f.text_field :start_time, :value => f.object.start_time.blank? ? Time.now.strftime(date_format) : f.object.start_time.strftime(date_format)
+  = f.text_field :start_time, :value => f.object.start_time.blank? ? (params[:date].blank? ? Time.now : params[:date].to_date).strftime(date_format) : f.object.start_time.strftime(date_format)
   %br
 
   = f.label :end_time
-  = f.text_field :end_time, :value => f.object.end_time.blank? ? Time.now.strftime(date_format) : f.object.end_time.strftime(date_format)
+  = f.text_field :end_time, :value => f.object.end_time.blank? ? (params[:date].blank? ? Time.now : params[:date].to_date).strftime(date_format) : f.object.end_time.strftime(date_format)
   %br
   = f.label :external_link
   = f.text_field :external_link
@@ -51,7 +51,7 @@
 
 = javascript_tag do
   - if current_user.admin
-    $('#task_start_time, #task_end_time').datetimepicker({ firstDay: 1})
+    $('#task_start_time, #task_end_time').datetimepicker({ firstDay: 1 })
   - else
     $('#task_start_time, #task_end_time').timepicker()
 
