@@ -16,7 +16,7 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
-    @task.build_projectTask description
+    @task.build_project
     render :layout => "overlay"
   end
 
