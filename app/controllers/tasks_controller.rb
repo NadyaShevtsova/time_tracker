@@ -63,7 +63,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
 
-    redirect_to(tasks_url)
+    redirect_to(tasks_url(:sort => params[:sort], :direction => params[:direction], :per_page => params[:per_page]))
   end
 
   def task_name_list
