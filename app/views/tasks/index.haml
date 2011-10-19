@@ -41,12 +41,12 @@
         = raw(auto_link(task.external_link))
       - if @current_date == Date.today or current_user.admin
         %td
-          = link_to 'Edit', edit_task_path(task, :sort => params[:sort], :direction => params[:direction]), :rel=>"#overlay"
+          = link_to 'Edit', edit_task_path(task, :sort => params[:sort], :direction => params[:direction], :per_page => params[:per_page]), :rel=>"#overlay"
           %br
           = link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete
 
 %div{:class => "new_task_link #{(@current_date == Date.today or current_user.admin) ? '' : 'hide'}"}
-  = link_to 'New Task', new_task_path(:sort => params[:sort], :direction => params[:direction] ), :rel=>"#overlay"
+  = link_to 'New Task', new_task_path(:sort => params[:sort], :direction => params[:direction], :per_page => params[:per_page] ), :rel=>"#overlay"
   .apple_overlay#overlay
     .contentWrap
 
