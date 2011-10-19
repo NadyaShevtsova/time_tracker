@@ -1,3 +1,3 @@
 $(function(){
-  $('#task_start_time, #task_end_time').datetimepicker();
+  $('#task_start_time, #task_end_time').datetimepicker({ firstDay: 1});
 });

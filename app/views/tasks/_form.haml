@@ -51,7 +51,7 @@
 
 = javascript_tag do
   - if current_user.admin
-    $('#task_start_time, #task_end_time').datetimepicker()
+    $('#task_start_time, #task_end_time').datetimepicker({ firstDay: 1})
   - else
     $('#task_start_time, #task_end_time').timepicker()
 
