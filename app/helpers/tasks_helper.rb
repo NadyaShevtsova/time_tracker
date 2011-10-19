@@ -11,4 +11,9 @@ module TasksHelper
     end
     links
   end
+
+  def transfer_params
+    {:sort => params[:sort], :direction => params[:direction], :per_page => params[:per_page] }
+  end
+
 end
