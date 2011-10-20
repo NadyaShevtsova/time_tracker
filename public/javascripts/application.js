@@ -28,7 +28,7 @@ function add_project(){
 }
 
 function per_page(value, direction, sort) {
-  url = window.location.search.replace(/(&|\\?).per_page=\d*/g, '').replace(/\\?page=\d*/g, '').replace(/(&|\\?).direction=(asc|desc)/, '').replace(/(&|\\?).sort=\w*\.\w*/, '');
+  url = window.location.search.replace(/(&|\\?).per_page=\d*/g, '').replace(/\\?page=\d*/g, '').replace(/(&|\\?).direction=(asc|desc)/, '').replace(/(&|\\?).sort=\w*(\.||_)\w*/, '');
   if (value) {
     window.location = url + (url == '' ? '?':'&') + 'per_page=' +  value + "&direction=" + direction + "&sort=" + sort;
   }
