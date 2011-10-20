@@ -6,18 +6,18 @@
     = project.name
   - show_message = false
   - unless  project.tasks.where(:start_time => DateTime.parse(params[:start_date])..DateTime.parse(params[:end_date])).empty?
-    - User.all(:include => :tasks, :conditions => ["tasks.id IS NOT NULL AND tasks.project_id = ?", project.id]).each do |user|
+    - project.tasks.where(:start_time => DateTime.parse(params[:start_date])..DateTime.parse(params[:end_date])).group(:user_id).each do |task_user|
       %table.table_users
         %tr
           %td.table_users_td_width
-            = user.username
+            = task_user.user.username
           %td
             %table.report_tasks{:border => 1}
               %tr
                 %th Task name
                 %th "Spent time"
                 %th
-              - project.tasks.where(:start_time => DateTime.parse(params[:start_date])..DateTime.parse(params[:end_date]),:user_id => user).group(:task_name).select("tasks.*, SUM(TIME_TO_SEC(TIMEDIFF(end_time, start_time))) as spent_time").each do |task|
+              - project.tasks.where(:start_time => DateTime.parse(params[:start_date])..DateTime.parse(params[:end_date]),:user_id => task_user.user.id).group(:task_name).select("tasks.*, SUM(TIME_TO_SEC(TIMEDIFF(end_time, start_time))) as spent_time").each do |task|
                 %tr{:id => "#{task.id}_#{task.user_id}_#{task.project_id}"}
                   %td.report_tasks_td_task_name
                     =task.task_name
