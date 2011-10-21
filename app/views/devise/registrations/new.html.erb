@@ -1,5 +1,11 @@
 <h2>Sign up</h2>
 
+<a href="/auth/twitter" class="auth_provider">
+  <%= image_tag "/images/twitter.png", :size => "64x64", :alt => "Twitter" %></a>
+<a href="/auth/twitter" class="auth_provider">
+  <%= image_tag "/images/facebook.png", :size => "64x64", :alt => "Facebook" %></a>
+
+
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
