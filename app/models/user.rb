@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :authentications
   has_many :tasks, :dependent => :destroy
 
   # Include default devise modules. Others available are:

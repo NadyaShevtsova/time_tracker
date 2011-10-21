@@ -17,4 +17,9 @@ gem 'will_paginate'
 gem 'formtastic'
 gem 'faker'
 
-gem 'ruby-debug'
+group :development do
+  gem 'omniauth'
+  gem "nifty-generators" 
+  gem 'ruby-debug'
+end
+gem "mocha", :group => :test

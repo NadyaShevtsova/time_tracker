@@ -1,4 +1,7 @@
 TimeTracker::Application.routes.draw do
+  match '/auth/:provider/callback' => 'authentications#create'
+  resources :authentications
+
   get "reports/index"
 
   get "tasks/index"
