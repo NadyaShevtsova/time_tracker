@@ -11,11 +11,13 @@ class User < ActiveRecord::Base
   attr_accessible :email, :username, :password, :password_confirmation, :remember_me, :admin
 
   validates :username, :presence => true
+
+  after_create :send_welcome_message
   
   def apply_omniauth(omniauth)
     self.email = omniauth['user_info']['email'] if omniauth["provider"].eql?("facebook")
     self.username = omniauth['user_info']['nickname'] ? omniauth['user_info']['nickname'] : omniauth['user_info']['email'].split('@').first
-    self.password = self.password_confirmation = Digest::SHA1.hexdigest(Time.now.to_s)[0,6] 
+    self.password = self.password_confirmation = Digest::SHA1.hexdigest("--@#{self.username}-123548")[0,6] 
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
   end
 
@@ -23,6 +25,10 @@ class User < ActiveRecord::Base
     authentications.empty? && super
   end
 
+  private
 
+  def send_welcome_message
+    Notifier.welcome(self, Digest::SHA1.hexdigest("--@#{self.username}-123548")[0,6]).deliver
+  end
 
 end
