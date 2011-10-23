@@ -11,5 +11,18 @@ class User < ActiveRecord::Base
   attr_accessible :email, :username, :password, :password_confirmation, :remember_me, :admin
 
   validates :username, :presence => true
+  
+  def apply_omniauth(omniauth)
+    self.email = omniauth['user_info']['email'] if omniauth["provider"].eql?("facebook")
+    self.username = omniauth['user_info']['nickname'] ? omniauth['user_info']['nickname'] : omniauth['user_info']['email'].split('@').first
+    self.password = self.password_confirmation = Digest::SHA1.hexdigest(Time.now.to_s)[0,6] 
+    authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
+  end
+
+  def password_required?
+    authentications.empty? && super
+  end
+
+
 
 end

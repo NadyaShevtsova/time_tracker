@@ -2,7 +2,7 @@
 
 <a href="/auth/twitter" class="auth_provider">
   <%= image_tag "/images/twitter.png", :size => "64x64", :alt => "Twitter" %></a>
-<a href="/auth/twitter" class="auth_provider">
+<a href="/auth/facebook" class="auth_provider">
   <%= image_tag "/images/facebook.png", :size => "64x64", :alt => "Facebook" %></a>
 
 
@@ -11,15 +11,17 @@
 
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
+  
+  <% if @user.password_required? %>
+    <div><%= f.label :username %><br />
+    <%= f.text_field :username %></div>
 
-  <div><%= f.label :username %><br />
-  <%= f.text_field :username %></div>
+    <div><%= f.label :password %><br />
+    <%= f.password_field :password %></div>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
+    <div><%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %></div>
+  <% end %>
 
   <div><%= f.submit "Sign up" %></div>
 <% end %>
