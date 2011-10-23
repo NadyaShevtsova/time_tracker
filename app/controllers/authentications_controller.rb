@@ -7,4 +7,12 @@ class AuthenticationsController < ApplicationController
     redirect_to edit_user_registration_path
   end
 
+  def destroy
+    @authentication = current_user.authentications.find(params[:id])
+    @authentication.destroy
+    flash[:notice] = "Successfully destroyed association."
+    redirect_to edit_user_registration_path
+  end
+
+
 end

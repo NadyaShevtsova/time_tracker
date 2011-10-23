@@ -1,4 +1,4 @@
-<div class="profile">
+<div class="orange_stile">
   <h4>Your profile</h4>
 </div>
 
@@ -23,20 +23,32 @@
   <div><%= f.submit "Update" %></div>
 <% end %>
 
+<div class="orange_stile">
+    <h4>Associate profile</h4>
+  </div>
 
-<div class="profile">
-  <h4>Aassociate profile</h4>
-</div>
-
-<a href="/auth/twitter" class="auth_provider">
-  <%= image_tag "/images/twitter.png", :size => "64x64", :alt => "Twitter" %></a>
-<a href="/auth/facebook" class="auth_provider">
-  <%= image_tag "/images/facebook.png", :size => "64x64", :alt => "Facebook" %></a>
+<% flash.each do |name, msg| %>
+  <%= content_tag :div, msg, :id => "flash_#{name}" %>
+<% end%>
 
 
-<div class="profile">
+<br>
+<% if current_user.authentications.twitter.empty? %>
+  <%= link_to image_tag("/images/twitter.png", :size => "64x64", :alt => "Twitter"), "/auth/twitter", :class => "auth_provider" %>
+<% else %>
+   <%= link_to image_tag("/images/twitter_del.png",:title => "delete twitter association"), current_user.authentications.twitter.first, :confirm => 'Are you sure you want to remove this assotiation ', :method => :delete %>
+<% end %>
+
+<% if current_user.authentications.facebook.empty? %>
+  <%= link_to image_tag("/images/facebook.png", :size => "64x64", :alt => "facebook"), "/auth/facebook", :class => "auth_provider" %>
+<% else %>
+   <%= link_to image_tag("/images/facebook_del.png",:title => "delete facebook association"), current_user.authentications.facebook.first, :confirm => 'Are you sure you want to remove this assotiation ', :method => :delete %>
+<% end %>
+
+
+<div class="orange_stile">
   <h4>Cancel my account</h4>
 </div>
 <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
 
-<%= link_to "Back", :back %>
+<%= link_to "Back to tasks", tasks_path %>

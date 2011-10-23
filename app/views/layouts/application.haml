@@ -10,8 +10,9 @@
     = yield :js
     = csrf_meta_tag
   %body
-    - flash.each do |name, msg|
-      = content_tag :div, msg, :id => "flash_#{name}"
+    - unless (params[:controller] == 'users' && params[:action] == 'edit' )
+      - flash.each do |name, msg| 
+        = content_tag :div, msg, :id => "flash_#{name}"
     #user_new
       - if user_signed_in?
         = "Signed in as #{current_user.email}. Not you?"
