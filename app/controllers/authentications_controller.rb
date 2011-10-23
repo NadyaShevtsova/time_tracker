@@ -1,22 +1,22 @@
 class AuthenticationsController < ApplicationController
   
   def create
-    auth = request.env["omniauth.auth"] 
-    current_user.authentications.create(:provider => auth ['provider'], :uid => auth['uid'])
-    flash[:notice] = "Association with #{auth['provider']} successful."
-   redirect_to edit_user_registration_path
-
-
-=begin
     omniauth = request.env["omniauth.auth"]
-    authentication = Authentication.find_form_hash(omniauth)
-    if current_user
-      current_user.authentications.create!(:provider => omniauth ['provider'], :uid => omniauth['uid'])
-      flash[:notice] = "Association with #{auth['provider']} successful."
+    authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
+    if authentication
+      flash[:notice] = "Signed in successfully."
+      sign_in_and_redirect(:user, tasks_path)
+    elsif current_user
+      current_user.authentications.create(:provider => omniauth ['provider'], :uid => omniauth['uid'])
+      flash[:notice] = "Association with #{omniauth['provider']} successful."
       redirect_to edit_user_registration_path
-    elsif authentication 
+
     else
-      
+      user = User.new
+      user.authentications.build(:provider => omniauth ['provider'], :uid => omniauth['uid'])
+      user.save!
+      flash[:notice] = "Signed in successfully."
+      sign_in_and_redirect(:user, tasks_path)
     end
   end
 
@@ -26,6 +26,6 @@ class AuthenticationsController < ApplicationController
     flash[:notice] = "Successfully destroyed association."
     redirect_to edit_user_registration_path
   end
-=end
+
 
 end
