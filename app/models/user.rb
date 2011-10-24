@@ -12,8 +12,6 @@ class User < ActiveRecord::Base
 
   validates :username, :presence => true
 
-  after_create :send_welcome_message
-  
   def apply_omniauth(omniauth)
     self.email = omniauth['user_info']['email'] if omniauth["provider"].eql?("facebook")
     self.username = omniauth['user_info']['nickname'] ? omniauth['user_info']['nickname'] : omniauth['user_info']['email'].split('@').first
@@ -26,9 +24,4 @@ class User < ActiveRecord::Base
   end
 
   private
-
-  def send_welcome_message
-    Notifier.welcome(self, Digest::SHA1.hexdigest("--@#{self.username}-123548")[0,6]).deliver
-  end
-
 end

@@ -13,8 +13,10 @@ class AuthenticationsController < ApplicationController
     else
       user = User.new
       user.apply_omniauth(omniauth)
+
       if user.save
         flash[:notice] = "Signed in successfully."
+        Notifier.welcome(user, Digest::SHA1.hexdigest("--@#{self.username}-123548")[0,6]).deliver
         sign_in_and_redirect(:user, user)
       else
         session[:omniauth] = omniauth.except('extra')
