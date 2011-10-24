@@ -1,0 +1,26 @@
+%h2 Sign up
+%a.auth_provider{:href => "/auth/twitter"}
+  = image_tag "/images/twitter.png", :size => "64x64", :alt => "Twitter"
+%a.auth_provider{:href => "/auth/facebook"}
+  = image_tag "/images/facebook.png", :size => "64x64", :alt => "Facebook"
+= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+  = devise_error_messages!
+  %div
+    = f.label :email
+    %br/
+    = f.email_field :email
+  - if @user.password_required?
+    %div
+      = f.label :username
+      %br/
+      = f.text_field :username
+    %div
+      = f.label :password
+      %br/
+      = f.password_field :password
+    %div
+      = f.label :password_confirmation
+      %br/
+      = f.password_field :password_confirmation
+  %div= f.submit "Sign up"
+= render :partial => "devise/shared/links"
