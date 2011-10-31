@@ -45,9 +45,9 @@
 
   = button_to_function "Save", "$('#new_task').submit()"
 
-  = hidden_field_tag(:sort , params[:sort])
-  = hidden_field_tag(:direction, params[:direction])
-  = hidden_field_tag(:per_page, params[:per_page])
+  = hidden_field_tag(:sort , sort_column)
+  = hidden_field_tag(:direction, sort_direction)
+  = hidden_field_tag(:per_page, params_perpage)
 
 = javascript_tag do
   - if current_user.admin
