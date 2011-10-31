@@ -6,7 +6,7 @@
 - Project.all.sort_by{ |k| k['name']}.each do |project|
   %div.report_project
     = project.name
-  - tasks = project.tasks.where(:start_time => DateTime.parse(params[:start_date])..DateTime.parse(params[:end_date]))
+  - tasks = project.tasks.where(:start_time => DateTime.parse(params[:start_date])..DateTime.parse(params[:end_date])+1.days)
   - unless  tasks.empty?
     - tasks.group(:user_id).each do |task_user|
       %table.table_users

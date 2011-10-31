@@ -12,19 +12,19 @@
   %tr
     - if current_user.admin
       %th
-        = sortable "users.username", "Users", params[:date], params[:per_page]
+        = helper_for_sortable "users.username", "Users"
     %th
-      = sortable "projects.name",  "Projects", params[:date], params[:per_page]
+      = helper_for_sortable "projects.name",  "Projects"
     %th
-      = sortable "task_name",  "Task name", params[:date], params[:per_page]
+      = helper_for_sortable "task_name",  "Task name"
     %th
-      = sortable "description", "Description", params[:date], params[:per_page]
+      = helper_for_sortable "description", "Description"
     %th
-      = sortable "start_time", "Start time", params[:date], params[:per_page]
+      = helper_for_sortable "start_time", "Start time"
     %th
-      = sortable  "end_time", "Finish time", params[:date], params[:per_page]
+      = helper_for_sortable "end_time", "Finish time"
     %th
-      = sortable "external_link", "External_link", params[:date], params[:per_page]
+      = helper_for_sortable "external_link", "External_link"
   - @tasks.each do |task|
     %tr
       - if current_user.admin
@@ -66,7 +66,7 @@
       firstDay: 1, 
       defaultDate: new Date('#{params[:date]}'),
       onSelect: function(dataText){
-        window.location.href = "/?date=" + dataText + "&per_page=#{(params[:per_page]).nil? ? 3 : params[:per_page]}" + "&direction=#{params[:direction]}" + "&sort=#{params[:sort]}";
+        window.location.href = "/?date=" + dataText + "&per_page=#{params_perpage}" + "&direction=#{sort_direction}" + "&sort=#{sort_column}";
       }
     });
   });
