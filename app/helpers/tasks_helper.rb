@@ -13,9 +13,12 @@ module TasksHelper
   end
 
   def transfer_params
-    {:sort => sort_column, :direction => sort_direction, :per_page => params_perpage }
+    {:sort => sort_column, :direction => sort_direction, :per_page => params_perpage }    
+  end
 
-    
+  def helper_for_sortable(column_name,column_name_in_view)
+    sortable(column_name, column_name_in_view, params[:date], params[:per_page])
+
   end
 
 end
