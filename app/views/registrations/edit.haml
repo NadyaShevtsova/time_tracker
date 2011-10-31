@@ -1,4 +1,6 @@
-%script{:src => "http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=ABQIAAAABjOkPfNrB7TiskPIlg4__BTcyCQWoMoDizeZ9q69rHzEiZQ2FRSv32A8wYj-fiRg-oI3cnkZaawIng", :type => "text/javascript"} 
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAABjOkPfNrB7TiskPIlg4__BTVARu1I5z0BTnpsEdZuIyl8_eAKxRPW_AZmTLA4E-70bVcGMVq420dyA" type="text/javascript"></script>
+//%script{:src => "http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=ABQIAAAABjOkPfNrB7TiskPIlg4__BTVARu1I5z0BTnpsEdZuIyl8_eAKxRPW_AZmTLA4E-70bVcGMVq420dyA", :type => "text/javascript"}
+ 
 .orange_stile
   %h4 Your profile
 = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
@@ -48,3 +50,9 @@
 %p
   Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete}.
 = link_to "Back to tasks", tasks_path
+
+:javascript
+  $(function(){
+    initialize();
+  }); 
+

@@ -33,42 +33,31 @@ function per_page(value, direction, sort) {
 }
 
 
-$(document).ready(function() {
-  // объявление переменных
-var map 		= null; // карта
-var geocoder 	= null; // объект геокодинга
+var map  	= null;
+var geocoder 	= null;
 
-// инициализация карты
 function initialize() {
-	if (GBrowserIsCompatible()) {
-		map = new GMap2(document.getElementById("map_canvas")); // делаем карту в таком диве
-		map.setCenter(new GLatLng(59.94, 30.3), 13); // устанавливаем центр карты и приближение
-		geocoder = new GClientGeocoder(); // создаем объект геокодера
-	}
+  if (GBrowserIsCompatible()) {
+    map = new GMap2(document.getElementById("map_canvas")); 
+    map.setCenter(new GLatLng(50.26, 30.31), 6);
+    geocoder = new GClientGeocoder();
+  }
 }
 
-// функция, выводящая маркер, 
-// соответсвующий указанному адресу
-// ее аргумент — адрес места
 function showAddress(address) {
-	if (geocoder) {
-		geocoder.getLatLng(
-			address, // сообщаем объекту адрес
-			function(point) { // объект вызывает функцию, аргумент которой точка, соответствующая адресу
-				if (!point) { // если точка не определена (то есть адрес не правильный или Гугл не нашел его)
-					alert(address + " не найден"); // выводим ошибку
-				} else { // если же все круто, то
-					map.setCenter(point, 15); // центром карты делаем эту точку
-					var marker = new GMarker(point); // создаем в ней маркер
-					map.addOverlay(marker); // и добавляем его на карту
-					marker.openInfoWindowHtml(address); // открываем у него инфоокно
-					document.getElementById('spot-lat').value 	= point.y; // и добавляем в поля широту
-					document.getElementById('spot-longi').value = point.x; // и долготу
-				}
-			}
-		);
-	}
+  address = "Украина";
+  if (geocoder) {
+    geocoder.getLatLng(
+    address, // сообщаем объекту адрес
+    function(point) { // объект вызывает функцию, аргумент которой точка, соответствующая адресу
+      if (!point) { // если точка не определена (то есть адрес не правильный или Гугл не нашел его)
+        alert(address + " не найден"); // выводим ошибку
+      } 
+      else { // если же все круто, то
+        map.setCenter(point, 15); // центром карты делаем эту точку
+        var marker = new GMarker(point); // создаем в ней маркер
+        map.addOverlay(marker); // и добавляем его на карту
+      }
+    });
+  }
 }
-});
-
-
