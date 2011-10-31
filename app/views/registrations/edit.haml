@@ -1,3 +1,4 @@
+%script{:src => "http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=ABQIAAAABjOkPfNrB7TiskPIlg4__BTcyCQWoMoDizeZ9q69rHzEiZQ2FRSv32A8wYj-fiRg-oI3cnkZaawIng", :type => "text/javascript"} 
 .orange_stile
   %h4 Your profile
 = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
@@ -38,6 +39,10 @@
   = link_to image_tag("/images/facebook.png", :size => "64x64", :alt => "facebook"), "/auth/facebook", :class => "auth_provider"
 - else
   = link_to image_tag("/images/facebook_del.png",:title => "delete facebook association"), current_user.authentications.facebook.first, :confirm => 'Are you sure you want to remove this assotiation ', :method => :delete
+
+
+#map_canvas
+
 .orange_stile
   %h4 Cancel my account
 %p
