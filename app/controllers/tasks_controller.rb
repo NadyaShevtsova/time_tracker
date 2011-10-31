@@ -75,7 +75,7 @@ class TasksController < ApplicationController
   end
 
   def details
-    @details = Task.where(:start_time => DateTime.parse(params[:start_date])..DateTime.parse(params[:end_date]),:user_id => params[:user_id], :project_id => params[:project_id], :task_name => params[:task_name])
+    @details = Task.where(:start_time => DateTime.parse(params[:start_date])..DateTime.parse(params[:end_date]) + 1.days,:user_id => params[:user_id], :project_id => params[:project_id], :task_name => params[:task_name])
    
     respond_to do |format|
       format.js do
