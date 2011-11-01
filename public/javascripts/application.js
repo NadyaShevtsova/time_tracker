@@ -45,21 +45,21 @@ function initialize() {
   }
 }
 
-function showAddress(address) {
-  address = "Донецк";
-  if (geocoder) {
-    geocoder.getLatLng(
-    address, // сообщаем объекту адрес
-    function(point) { // объект вызывает функцию, аргумент которой точка, соответствующая адресу
-      if (!point) { // если точка не определена (то есть адрес не правильный или Гугл не нашел его)
-        alert(address + " не найден"); // выводим ошибку
-      } 
-      else { // если же все круто, то
-        map.setCenter(point, 15); // центром карты делаем эту точку
-        var marker = new GMarker(point); // создаем в ней маркер
-        map.addOverlay(marker); // и добавляем его на карту
-        $('input[type="button"]').addClass("hide");
-      }
-    });
-  }
+function showAddress() {
+  $('input[type="button"]').addClass("hide");
+  var map = new GMap2(document.getElementById("map_canvas"));
+  var center = new GLatLng(48.015883, 37.80285);
+  map.setCenter(center, 13);
+
+  var marker = new GMarker(center, {draggable: true});
+
+  GEvent.addListener(marker, "dragstart", function() {
+      map.closeInfoWindow();
+      });
+
+  GEvent.addListener(marker, "dragend", function() {
+      marker.openInfoWindowHtml("Just bouncing along...");
+      });
+
+  map.addOverlay(marker);
 }
