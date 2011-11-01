@@ -37,30 +37,43 @@ var map  	= null;
 var geocoder 	= null;
 
 function initialize() {
-  if (GBrowserIsCompatible()) {
-    map = new GMap2(document.getElementById("map_canvas"));
-    map.addControl(new GSmallMapControl());
-    map.setCenter(new GLatLng(50.4501, 30.5234), 6);
-    geocoder = new GClientGeocoder();
+  address = $("#user_city").val() + " " + $("#user_street").val();
+  
+  map = new GMap2(document.getElementById("map_canvas"));
+  map.addControl(new GSmallMapControl());
+  geocoder = new GClientGeocoder();
+
+  if(address == " "){
+    if (GBrowserIsCompatible()) {
+      map.setCenter(new GLatLng(50.4501, 30.5234), 6);
+    }
+  }
+  else{
+    showAddress(address);
+    $('input[type="button"]').addClass("hide");
+  }
+}
+function showAddress(address) {
+  if (geocoder) {
+    geocoder.getLatLng(
+      address, 
+      function(point) { 
+        if (!point) { 
+          alert(address + " не найден"); 
+        } 
+        else { 
+          map.setCenter(point, 6); 
+          var marker = new GMarker(point, {draggable: true});
+
+          GEvent.addListener(marker, "dragend", function() {
+            marker.openInfoWindowHtml("Just bouncing along...");
+          });
+
+          map.addOverlay(marker);
+
+        }
+      }
+    );
   }
 }
 
-function showAddress() {
-  $('input[type="button"]').addClass("hide");
-  var map = new GMap2(document.getElementById("map_canvas"));
-  map.addControl(new GSmallMapControl());
-  var center = new GLatLng(50.4501, 30.5234);
-  map.setCenter(center, 6);
-
-  var marker = new GMarker(center, {draggable: true});
-
-  GEvent.addListener(marker, "dragstart", function() {
-      map.closeInfoWindow();
-      });
-
-  GEvent.addListener(marker, "dragend", function() {
-      marker.openInfoWindowHtml("Just bouncing along...");
-      });
-
-  map.addOverlay(marker);
-}
