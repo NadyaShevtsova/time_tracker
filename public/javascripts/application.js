@@ -38,14 +38,15 @@ var geocoder 	= null;
 
 function initialize() {
   if (GBrowserIsCompatible()) {
-    map = new GMap2(document.getElementById("map_canvas")); 
+    map = new GMap2(document.getElementById("map_canvas"));
+    map.addControl(new GSmallMapControl());
     map.setCenter(new GLatLng(50.26, 30.31), 6);
     geocoder = new GClientGeocoder();
   }
 }
 
 function showAddress(address) {
-  address = "Украина";
+  address = "Донецк";
   if (geocoder) {
     geocoder.getLatLng(
     address, // сообщаем объекту адрес
@@ -57,6 +58,7 @@ function showAddress(address) {
         map.setCenter(point, 15); // центром карты делаем эту точку
         var marker = new GMarker(point); // создаем в ней маркер
         map.addOverlay(marker); // и добавляем его на карту
+        $('input[type="button"]').addClass("hide");
       }
     });
   }
