@@ -40,7 +40,7 @@ function initialize() {
   if (GBrowserIsCompatible()) {
     map = new GMap2(document.getElementById("map_canvas"));
     map.addControl(new GSmallMapControl());
-    map.setCenter(new GLatLng(50.26, 30.31), 6);
+    map.setCenter(new GLatLng(50.4501, 30.5234), 6);
     geocoder = new GClientGeocoder();
   }
 }
@@ -48,8 +48,9 @@ function initialize() {
 function showAddress() {
   $('input[type="button"]').addClass("hide");
   var map = new GMap2(document.getElementById("map_canvas"));
-  var center = new GLatLng(48.015883, 37.80285);
-  map.setCenter(center, 13);
+  map.addControl(new GSmallMapControl());
+  var center = new GLatLng(50.4501, 30.5234);
+  map.setCenter(center, 6);
 
   var marker = new GMarker(center, {draggable: true});
 

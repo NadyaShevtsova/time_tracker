@@ -27,6 +27,12 @@
     %i (we need your current password to confirm your changes)
     %br/
     = f.password_field :current_password
+  %div
+    %br
+    = f.label :city_and_street
+    %br
+    = f.text_field :city
+    = f.text_field :street
   %div= f.submit "Update"
 .orange_stile
   %h4 Associate profile
@@ -41,6 +47,7 @@
   = link_to image_tag("/images/facebook.png", :size => "64x64", :alt => "facebook"), "/auth/facebook", :class => "auth_provider"
 - else
   = link_to image_tag("/images/facebook_del.png",:title => "delete facebook association"), current_user.authentications.facebook.first, :confirm => 'Are you sure you want to remove this assotiation ', :method => :delete
+
 
 %br
 = button_to_function "Set my position","showAddress()"
