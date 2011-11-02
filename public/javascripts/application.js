@@ -41,6 +41,7 @@ function initialize() {
   
   map = new GMap2(document.getElementById("map_canvas"));
   map.addControl(new GSmallMapControl());
+  map.addControl(new GMapTypeControl());
   geocoder = new GClientGeocoder();
 
   if(address == ""){

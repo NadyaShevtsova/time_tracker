@@ -22,5 +22,10 @@
       = f.label :password_confirmation
       %br/
       = f.password_field :password_confirmation
+    %div
+      = f.label :address
+      %br
+      = f.text_field :address
+
   %div= f.submit "Sign up"
 = render :partial => "devise/shared/links"
