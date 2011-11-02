@@ -23,5 +23,7 @@ class User < ActiveRecord::Base
     authentications.empty? && super
   end
 
-  private
+  def just_created?
+    self.created_at > 30.seconds.ago
+  end
 end
