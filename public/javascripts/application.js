@@ -35,6 +35,7 @@ function per_page(value, direction, sort) {
 
 var map  	= null;
 var geocoder 	= null;
+var marker      = null;
 
 function initialize() {
   address = $("#user_address").val();
@@ -64,7 +65,7 @@ function showAddress(address) {
           } 
           else { 
             map.setCenter(point, 6); 
-            var marker = new GMarker(point, {draggable: true});
+            marker = new GMarker(point, {draggable: true});
 
             GEvent.addListener(marker, "dragend", function(latlng) {
           //marker.openInfoWindowHtml("Just bouncing along...");
@@ -75,17 +76,9 @@ function showAddress(address) {
                 } 
                 else {
                   var update_address = response.Placemark[0].address;
-                  if (prompt('Update your address?',update_address)){
-                    $.get('/registrations/update_address?update_address=' +update_address, function(){
-                      $('#user_address').val(update_address);
-                    });
+                  var html = "<center><b>Update your address?</b></center><br>"+update_address+"<br><center><input class='yes' onclick='update_coords(\"" + update_address + "\")' type='button' value='yes' /><input class='no' onclick='return_coords(\"" + address + "\")' type='button' value='no' /></center>";  
+                    marker.openInfoWindowHtml(html, { maxWidth: 300 });
                   }
-                  else {
-                    update_address = address;
-                  }
-                  map.removeOverlay(marker);
-                  showAddress(update_address);
-                }
               });
             });
         
@@ -95,3 +88,16 @@ function showAddress(address) {
     );
   }
 }
+
+function update_coords(update_address){
+  $.get('/registrations/update_address?update_address=' +update_address, function(){$('#user_address').val(update_address);});
+  map.removeOverlay(marker);
+  showAddress(update_address);
+  marker.closeInfoWindowHtml();
+}
+function return_coords(address){
+  map.removeOverlay(marker);
+  showAddress(address);
+}
+
+ 
