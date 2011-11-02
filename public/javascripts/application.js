@@ -67,7 +67,19 @@ function showAddress(address) {
           var marker = new GMarker(point, {draggable: true});
 
           GEvent.addListener(marker, "dragend", function() {
-            marker.openInfoWindowHtml("Just bouncing along...");
+            //marker.openInfoWindowHtml("Just bouncing along...");
+            var update_address=prompt('Update your address?','Донецк Артема 163б');
+            if(update_address){
+              alert(update_address);
+            }
+            else{
+              update_address = address;
+              map.removeOverlay(marker);
+              showAddress(update_address);
+          //    map.addOverlay(marker);
+
+              //alert(update_address);
+            }
           });
 
           map.addOverlay(marker);
