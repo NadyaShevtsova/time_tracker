@@ -6,7 +6,7 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-User.create(:email => "admin@gmail.com", :password => "admin",:password_confirmation => "admin", :username => "admin", :admin => true, :city => Faker::Address.city, :street => Faker::Address.street_address)
+User.create(:email => "admin@gmail.com", :password => "admin",:password_confirmation => "admin", :username => "admin", :admin => true, :address => "")
 
 Project.transaction do
   (1..7).each do |i|
@@ -14,9 +14,9 @@ Project.transaction do
   end
 end
 
-User.create(:username => "test", :email => "test@test.com", :password => "test", :password_confirmation => "test", :admin => false, :city => "", :street => "")
+User.create(:username => "test", :email => "test@test.com", :password => "test", :password_confirmation => "test", :admin => false, :address => "")
 
-User.create(:email => "user@user.com", :password => "user",:password_confirmation => "user", :username => "user", :admin => false, :city => Faker::Address.city, :street => Faker::Address.street_address)
+User.create(:email => "user@user.com", :password => "user",:password_confirmation => "user", :username => "user", :admin => false, :address => "55 Southwest 17th Road, Miami")
 
 user_id1 = User.find_by_username("test").id
 user_id2 = User.find_by_username("user").id

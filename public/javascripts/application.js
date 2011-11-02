@@ -37,13 +37,13 @@ var map  	= null;
 var geocoder 	= null;
 
 function initialize() {
-  address = $("#user_city").val() + " " + $("#user_street").val();
+  address = $("#user_address").val();
   
   map = new GMap2(document.getElementById("map_canvas"));
   map.addControl(new GSmallMapControl());
   geocoder = new GClientGeocoder();
 
-  if(address == " "){
+  if(address == ""){
     if (GBrowserIsCompatible()) {
       map.setCenter(new GLatLng(50.4501, 30.5234), 6);
     }
