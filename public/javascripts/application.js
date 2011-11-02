@@ -57,36 +57,41 @@ function initialize() {
 function showAddress(address) {
   if (geocoder) {
     geocoder.getLatLng(
-      address, 
-      function(point) { 
-        if (!point) { 
-          alert(address + " не найден"); 
-        } 
-        else { 
-          map.setCenter(point, 6); 
-          var marker = new GMarker(point, {draggable: true});
+        address, 
+        function(point) { 
+          if (!point) { 
+            alert(address + " not found"); 
+          } 
+          else { 
+            map.setCenter(point, 6); 
+            var marker = new GMarker(point, {draggable: true});
 
-          GEvent.addListener(marker, "dragend", function() {
-            //marker.openInfoWindowHtml("Just bouncing along...");
-            var update_address=prompt('Update your address?','Донецк Артема 163б');
-            if(update_address){
-              $.get('/registrations/update_address?update_address=' +update_address, function(){
-                  $('#user_address').val(update_address);
-                } );
-            }
-            else{
-              update_address = address;
-            }
-            map.removeOverlay(marker);
-            showAddress(update_address);
-
-          });
-
+            GEvent.addListener(marker, "dragend", function(latlng) {
+          //marker.openInfoWindowHtml("Just bouncing along...");
+              geocoder.getLocations(latlng, function(response){
+                if (!response || response.Status.code != 200) {
+                  alert("Not found");
+                  return false;
+                } 
+                else {
+                  var update_address = response.Placemark[0].address;
+                  if (prompt('Update your address?',update_address)){
+                    $.get('/registrations/update_address?update_address=' +update_address, function(){
+                      $('#user_address').val(update_address);
+                    });
+                  }
+                  else {
+                    update_address = address;
+                  }
+                  map.removeOverlay(marker);
+                  showAddress(update_address);
+                }
+              });
+            });
+        
           map.addOverlay(marker);
-
+          }
         }
-      }
     );
   }
 }
-
