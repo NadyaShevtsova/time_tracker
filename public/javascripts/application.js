@@ -52,10 +52,10 @@ function initialize() {
   }
   else{
     showAddress(address);
-    $('input[type="button"]').addClass("hide");
   }
 }
 function showAddress(address) {
+  $('input[type="button"]').addClass("hide");
   if (geocoder) {
     geocoder.getLatLng(
         address, 
