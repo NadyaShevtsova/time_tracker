@@ -15,6 +15,11 @@
     = f.text_field :username
   %div
     = f.label :password
+    %i (we need your current password to confirm your changes)
+    %br/
+    = f.password_field :current_password
+  %div
+    = f.label :new_password
     %i (leave blank if you don't want to change it)
     %br/
     = f.password_field :password
@@ -22,11 +27,6 @@
     = f.label :password_confirmation
     %br/
     = f.password_field :password_confirmation
-  %div
-    = f.label :current_password
-    %i (we need your current password to confirm your changes)
-    %br/
-    = f.password_field :current_password
   %div
     %br
     = f.label :address
