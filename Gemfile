@@ -16,10 +16,22 @@ gem 'jquery-rails'
 gem 'will_paginate'
 gem 'formtastic'
 gem 'faker'
+gem 'omniauth'
 
 group :development do
-  gem 'omniauth'
   gem "nifty-generators" 
   gem 'ruby-debug'
+  gem "rspec"
 end
-gem "mocha", :group => :test
+
+group :development, :test do
+  gem 'rspec-rails'
+end
+
+group :test do
+  gem 'factory_girl'
+  gem 'mocha'
+  gem 'spork'
+  gem 'simplecov'
+end
+
