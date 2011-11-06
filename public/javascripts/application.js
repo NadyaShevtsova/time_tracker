@@ -61,17 +61,19 @@ function showAddress(address) {
         address, 
         function(point) { 
           if (!point) { 
-            alert(address + " not found"); 
-          } 
-          else { 
+            point = new GLatLng(50.4501, 30.5234);
             map.setCenter(point, 13); 
-            marker = new GMarker(point, {draggable: true});
+            $('input[type="button"]').removeClass("hide");
+            return false;
+
+          } 
+          map.setCenter(point, 13); 
+          marker = new GMarker(point, {draggable: true});
 
             GEvent.addListener(marker, "dragend", function(latlng) {
           //marker.openInfoWindowHtml("Just bouncing along...");
               geocoder.getLocations(latlng, function(response){
                 if (!response || response.Status.code != 200) {
-                  alert("Not found");
                   return false;
                 } 
                 else {
@@ -83,8 +85,7 @@ function showAddress(address) {
             });
         
           map.addOverlay(marker);
-          }
-        }
+      }
     );
   }
 }
