@@ -11,20 +11,13 @@
 %table{:border => 1}
   %tr
     - if current_user.admin
-      %th
-        = helper_for_sortable "users.username", "Users"
-    %th
-      = helper_for_sortable "projects.name",  "Projects"
-    %th
-      = helper_for_sortable "task_name",  "Task name"
-    %th
-      = helper_for_sortable "description", "Description"
-    %th
-      = helper_for_sortable "start_time", "Start time"
-    %th
-      = helper_for_sortable "end_time", "Finish time"
-    %th
-      = helper_for_sortable "external_link", "External_link"
+      = helper_for_sortable "users.username", "Users"
+    = helper_for_sortable "projects.name",  "Projects"
+    = helper_for_sortable "task_name",  "Task name"
+    = helper_for_sortable "description", "Description"
+    = helper_for_sortable "start_time", "Start time"
+    = helper_for_sortable "end_time", "Finish time"
+    = helper_for_sortable "external_link", "External_link"
   - @tasks.each do |task|
     %tr
       - if current_user.admin

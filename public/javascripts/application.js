@@ -64,7 +64,7 @@ function showAddress(address) {
             alert(address + " not found"); 
           } 
           else { 
-            map.setCenter(point, 6); 
+            map.setCenter(point, 13); 
             marker = new GMarker(point, {draggable: true});
 
             GEvent.addListener(marker, "dragend", function(latlng) {

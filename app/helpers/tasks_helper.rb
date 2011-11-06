@@ -17,8 +17,9 @@ module TasksHelper
   end
 
   def helper_for_sortable(column_name,column_name_in_view)
-    sortable(column_name, column_name_in_view, params[:date], params[:per_page])
-
+    content_tag :th do
+      sortable(column_name, column_name_in_view, params[:date], params[:per_page])
+    end
   end
 
 end
