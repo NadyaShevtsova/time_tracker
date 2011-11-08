@@ -25,11 +25,10 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem "rspec"
 end
 
 group :test do
-  gem 'factory_girl'
+  gem 'factory_girl_rails'
   gem 'mocha'
   gem 'spork'
   gem 'simplecov'

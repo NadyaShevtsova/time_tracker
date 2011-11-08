@@ -1,13 +1,9 @@
 require File.dirname(__FILE__) + '/../spec_helper'
  
-describe User do
-  it "should authenticate with matching username and password" do
-    user = Factory(:user, :username => 'frank', :password => 'secret')
-    User.authenticate('frank', 'secret').should == user
-  end
-  
-  it "should not authenticate with incorrect password" do
-    user = Factory(:user, :username => 'frank', :password => 'secret')
-    User.authenticate('frank', 'incorrect').should be_nil
+  describe User do
+    it "It should be possible to creat a valid one" do
+      user = Factory(:user)
+      user.should be_valid
+      user.should_not be_new_record
   end
 end
