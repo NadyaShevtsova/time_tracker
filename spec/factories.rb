@@ -6,12 +6,7 @@ Factory.define :user do |t|
         t.password_confirmation "user"
 end
 
-Factory.define :admin, :class => User do |t|
-	t.email Faker::Internet.email
-        t.address Faker::Address.city()+" "+Faker::Address.street_address
-	t.username "admin"
-	t.password "admin"
-        t.password_confirmation "admin"
+Factory.define :admin, :parent => :user do |t|
         t.admin true
 end
 
