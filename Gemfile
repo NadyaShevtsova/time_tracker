@@ -21,11 +21,11 @@ gem 'omniauth'
 group :development do
   gem "nifty-generators" 
   gem 'ruby-debug'
-  gem "rspec"
 end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem "rspec"
 end
 
 group :test do
