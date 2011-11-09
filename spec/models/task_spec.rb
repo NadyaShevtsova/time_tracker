@@ -13,5 +13,12 @@ require File.dirname(__FILE__) + '/../spec_helper'
       task.errors[:task_name].should_not be_blank
       task.errors[:description].should_not be_blank
     end
+    
+    it "should not be created if day of :start_time not equal day of :end_time" do
+      task = Factory.build(:task, :start_time => '2011-11-01 09:00:00', :end_time => '2011-11-02 12:55:00')
+      task.should_not be_valid
+      (task.send :check_equality_day).should_not be_blank
+    end
+
 
 end
