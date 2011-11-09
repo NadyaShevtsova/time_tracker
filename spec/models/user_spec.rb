@@ -1,16 +1,19 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+require 'ruby-debug'
  
   describe User do
     it "Created User should be valid" do
       user = Factory.create(:user)
       user.errors.should be_blank
       user.should be_valid
+      user.admin == false
     end
   
     it "Created user Admin should be valid" do
       user = Factory.create(:admin)
       user.errors.should be_blank
       user.should be_valid
+      user.admin == true
     end
   
     it "User with blank username should not be created" do
@@ -21,12 +24,40 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
     it "should be just_created" do
       user  = Factory.create(:user, :email => "ad@mambo.ru", :username => "alex")
+      user.should be_valid
+      user.should_not be_new_record
       user.just_created? == true
     end
 
     it "should not be just_created" do
-      user  = Factory.build(:user, :created_at => "2011-11-06 17:15:10")
+      user  = Factory.create(:user, :created_at => "2011-11-06 17:15:10")
+      user.should be_valid
+      user.should_not be_new_record
       user.just_created? == false
+    end
+    
+    it "created via facebook should be valid" do
+      omniauth = {'user_info' => {'email' => Faker::Internet.email,'nickname' => Faker::Internet.user_name}, 'provider' => "facebook"}
+      user = User.new
+      user.apply_omniauth(omniauth)
+      user.should be_valid
+    end
+
+    it "created via facebook should not be valid with blank 'email' and :username" do
+      omniauth = {'user_info' => {'email' => '','nickname' => ''}, 'provider' => "facebook"}
+      user = User.new
+      user.apply_omniauth(omniauth)
+      user.should_not be_valid
+      user.errors[:email].should_not be_blank
+      user.errors[:username].should_not be_blank
+    end
+
+    it "created via twitter should not be valid because fields 'email' are blank" do
+      omniauth = {'user_info' => {'email' => '','nickname' => Faker::Internet.user_name}, 'provider' => "twitter"}
+      user = User.new
+      user.apply_omniauth(omniauth)
+      user.should_not be_valid
+      user.errors[:email].should_not be_blank
     end
 
 
