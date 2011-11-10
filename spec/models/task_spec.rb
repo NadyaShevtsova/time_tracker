@@ -8,7 +8,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
     end
     
     it "Task with blank task_name, description should not be created" do
-      task = Factory.build(:task, :task_name => nil, :description => nil,:start_time => '',:end_time => '')
+      task = Factory.build(:task, :task_name => nil, :description => nil,:start_time => '', :end_time => '')
       task.should_not be_valid
       task.errors[:task_name].should_not be_blank
       task.errors[:description].should_not be_blank

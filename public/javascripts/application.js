@@ -62,7 +62,7 @@ function showAddress(address) {
         function(point) { 
           if (!point) { 
             point = new GLatLng(50.4501, 30.5234);
-            map.setCenter(point, 13); 
+            map.setCenter(point, 6); 
             $('input[type="button"]').removeClass("hide");
             return false;
 
