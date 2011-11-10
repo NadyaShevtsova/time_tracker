@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
   describe Project do
     it "should not be valid with the same names" do
       project = Factory.create(:project, :name => "Schaefer-Haley")
-      project.errors.should be_blank
       project.should be_valid
 
       project2 = Factory.build(:project, :name => "Schaefer-Haley")

@@ -4,14 +4,12 @@ require 'ruby-debug'
   describe User do
     it "Created User should be valid" do
       user = Factory.create(:user)
-      user.errors.should be_blank
       user.should be_valid
       user.admin == false
     end
   
     it "Created user Admin should be valid" do
       user = Factory.create(:admin)
-      user.errors.should be_blank
       user.should be_valid
       user.admin == true
     end
