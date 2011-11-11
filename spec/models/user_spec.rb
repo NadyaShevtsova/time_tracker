@@ -1,19 +1,18 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-require 'ruby-debug'
- 
+
   describe User do
     it "Created User should be valid" do
       user = Factory.create(:user)
       user.should be_valid
       user.admin == false
     end
-  
+
     it "Created user Admin should be valid" do
       user = Factory.create(:admin)
       user.should be_valid
       user.admin == true
     end
-  
+
     it "User with blank username should not be created" do
       user  = Factory.build(:user, :username => nil)
       user.should_not be_valid
@@ -33,7 +32,7 @@ require 'ruby-debug'
       user.should_not be_new_record
       user.just_created? == false
     end
-    
+
     it "created via facebook should be valid" do
       omniauth = {'user_info' => {'email' => Faker::Internet.email,'nickname' => Faker::Internet.user_name}, 'provider' => "facebook"}
       user = User.new
