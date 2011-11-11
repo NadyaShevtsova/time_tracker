@@ -19,7 +19,7 @@ gem 'faker'
 gem 'omniauth'
 
 group :development do
-  gem "nifty-generators" 
+  gem "nifty-generators"
   gem 'ruby-debug'
 end
 
@@ -31,6 +31,5 @@ group :test do
   gem 'factory_girl_rails'
   gem 'mocha'
   gem 'spork'
-  gem 'simplecov'
 end
 
