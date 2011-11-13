@@ -36,10 +36,11 @@ function per_page(value, direction, sort) {
 var map  	= null;
 var geocoder 	= null;
 var marker      = null;
-
+var infowindow = null;
 function initialize() {
   address = $("#user_address").val();
   geocoder = new google.maps.Geocoder();
+
   var latlng; 
 
   if(address == ""){
@@ -63,70 +64,50 @@ function show_map(latlng,zoom){
 function showAddress(latlng) {
   $('input[type="button"]').addClass("hide");
   var marker = new google.maps.Marker({
-      position: latlng, 
-      map: map, 
-      draggable: true
+    position: latlng, 
+    map: map, 
+    draggable: true
   });   
-/*      geocoder.getLatLng(
-        address, 
-        function(point) { 
-          if (!point) { 
-            point = new GLatLng(50.4501, 30.5234);
-            map.setCenter(point, 13); 
-            $('input[type="button"]').removeClass("hide");
-            return false;
-
-          } 
-          map.setCenter(point, 13); 
-          marker = new GMarker(point, {draggable: true});
-
-            GEvent.addListener(marker, "dragend", function(latlng) {
-          //marker.openInfoWindowHtml("Just bouncing along...");
-              geocoder.getLocations(latlng, function(response){
-                if (!response || response.Status.code != 200) {
-                  return false;
-                } 
-                else {
-                  var update_address = response.Placemark[0].address;
-                  var html = "<center><b>Update your address?</b></center><br>"+update_address+"<br><center><input class='yes' onclick='update_coords(\"" + update_address + "\")' type='button' value='yes' /><input class='no' onclick='return_coords(\"" + address + "\")' type='button' value='no' /></center>";  
-                    marker.openInfoWindowHtml(html, { maxWidth: 300 });
-                  }
-              });
-            });
-        
-          map.addOverlay(marker);
+  google.maps.event.addListener(marker, 'dragend', function(latlng) {
+    geocoder.geocode({latLng: latlng.latLng}, function(responses) {
+      if (responses && responses.length > 0) {
+        var update_address = responses[0].formatted_address;
+        var html = "<center><b>Update your address?</b></center><br>"+update_address+"<br><center><input class='yes' onclick='update_coords(\"" + update_address + "\");' type='button' value='yes' /><input class='no' onclick='return_coords()' type='button' value='no' /></center>";
+        infowindow = new google.maps.InfoWindow();
+        infowindow.setContent(html);
+        infowindow.open(map, marker, { maxWidth: 100 });
+      } else {
+        return false;
       }
-    );
-    */
+    });
+  });
 }
 
 function update_coords(update_address){
   $.get('/registrations/update_address?update_address=' +update_address, function(){$('#user_address').val(update_address);});
-  map.removeOverlay(marker);
-  showAddress(update_address);
-  marker.closeInfoWindowHtml();
+  infowindow.close();
 }
-function return_coords(address){
-  map.removeOverlay(marker);
-  showAddress(address);
+
+function return_coords(){
+  infowindow.close();
+  coords( $("#user_address").val());
 }
 
 function coords(address) {
- if (geocoder) {
+   if (geocoder) {
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         latlng = results[0].geometry.location;
         show_map(latlng,13);
-        showAddress(latlng);
+        showAddress(latlng); 
       }
       else {
         latlng = new google.maps.LatLng(50.4501, 30.5234);
         show_map(latlng,6);
         $('input[type="button"]').removeClass("hide");
         return false;
-
       }
     });
   }
 }
- 
+
