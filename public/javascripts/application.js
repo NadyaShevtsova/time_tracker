@@ -67,8 +67,7 @@ function showAddress(latlng) {
       map: map, 
       draggable: true
   });   
-/*  if (geocoder) {
-    geocoder.getLatLng(
+/*      geocoder.getLatLng(
         address, 
         function(point) { 
           if (!point) { 
@@ -98,7 +97,7 @@ function showAddress(latlng) {
           map.addOverlay(marker);
       }
     );
-  }*/
+    */
 }
 
 function update_coords(update_address){
@@ -121,7 +120,11 @@ function coords(address) {
         showAddress(latlng);
       }
       else {
-        alert("Geocode was not successful for the following reason: " + status);
+        latlng = new google.maps.LatLng(50.4501, 30.5234);
+        show_map(latlng,6);
+        $('input[type="button"]').removeClass("hide");
+        return false;
+
       }
     });
   }
