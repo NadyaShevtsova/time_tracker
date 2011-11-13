@@ -39,21 +39,28 @@ var marker      = null;
 
 function initialize() {
   address = $("#user_address").val();
-  
-  map = new GMap2(document.getElementById("map_canvas"));
-  map.addControl(new GSmallMapControl());
-  map.addControl(new GMapTypeControl());
-  geocoder = new GClientGeocoder();
+  geocoder = new google.maps.Geocoder();
+  var latlng; 
 
   if(address == ""){
-    if (GBrowserIsCompatible()) {
-      map.setCenter(new GLatLng(50.4501, 30.5234), 6);
-    }
+    latlng = new google.maps.LatLng(50.4501, 30.5234);
+    show_map(latlng);
   }
   else{
-    showAddress(address);
-  }
+    coords(address,show_map(latlng));
+  }  
+   //  showAddress(address); 
 }
+
+function show_map(latlng){
+  myOptions = {
+    zoom: 6,
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+}
+
 function showAddress(address) {
   $('input[type="button"]').addClass("hide");
   if (geocoder) {
@@ -101,4 +108,17 @@ function return_coords(address){
   showAddress(address);
 }
 
+function coords(address) {
+ if (geocoder) {
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        latlng = results[0].geometry.location;
+        show_map(latlng);
+      }
+      else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+}
  
