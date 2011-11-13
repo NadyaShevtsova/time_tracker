@@ -44,26 +44,30 @@ function initialize() {
 
   if(address == ""){
     latlng = new google.maps.LatLng(50.4501, 30.5234);
-    show_map(latlng);
+    show_map(latlng,6);
   }
   else{
-    coords(address,show_map(latlng));
-  }  
-   //  showAddress(address); 
+    coords(address,show_map,showAddress);
+   }  
 }
 
-function show_map(latlng){
+function show_map(latlng,zoom){
   myOptions = {
-    zoom: 6,
+    zoom: zoom,
     center: latlng,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 }
 
-function showAddress(address) {
+function showAddress(latlng) {
   $('input[type="button"]').addClass("hide");
-  if (geocoder) {
+  var marker = new google.maps.Marker({
+      position: latlng, 
+      map: map, 
+      draggable: true
+  });   
+/*  if (geocoder) {
     geocoder.getLatLng(
         address, 
         function(point) { 
@@ -94,7 +98,7 @@ function showAddress(address) {
           map.addOverlay(marker);
       }
     );
-  }
+  }*/
 }
 
 function update_coords(update_address){
@@ -113,7 +117,8 @@ function coords(address) {
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         latlng = results[0].geometry.location;
-        show_map(latlng);
+        show_map(latlng,13);
+        showAddress(latlng);
       }
       else {
         alert("Geocode was not successful for the following reason: " + status);
