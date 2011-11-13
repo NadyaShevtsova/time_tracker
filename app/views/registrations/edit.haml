@@ -18,7 +18,7 @@
     = f.label :password
     %i (we need your current password to confirm your changes)
     %br/
-    = f.password_field :current_password
+    = f.password_field :current_password, :autocomplete => "off"
   %div
     = f.label :new_password
     %i (leave blank if you don't want to change it)

@@ -10,7 +10,7 @@ class RegistrationsController < Devise::RegistrationsController
       render :nothing => true, :status => 200
     end
   end
-
+  
   private
   def build_resource(*args)
     super
