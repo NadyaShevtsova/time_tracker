@@ -50,7 +50,7 @@
 
 
 %br
-= button_to_function "Set my position","coords('Украина Киев',show_map,showAddress)"
+= button_to_function "Set my position","Application.coords('Украина Киев',show_map,showAddress)"
 
 #map_canvas
 
@@ -62,6 +62,6 @@
 
 :javascript
   $(function(){
-    initialize();
+    Application.initialize();
   });
 
