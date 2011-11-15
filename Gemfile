@@ -32,5 +32,6 @@ group :test do
   gem 'mocha'
   gem 'spork'
   gem 'email_spec'
+  gem 'rcov'
 end
 
