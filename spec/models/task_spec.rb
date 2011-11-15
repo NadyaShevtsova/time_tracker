@@ -44,7 +44,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
       task.send :check_http
       task.should be_valid
       task.external_link.grep(/(http:\/\/|https:\/\/)/).empty?.should be_false
-      task.external_link == 'http://mail.ru'
+      task.external_link.should eq('http://mail.ru')
     end
 
     it "should be successful created with :external_link => 'http://mail.ru' " do
@@ -52,8 +52,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
       task.external_link.grep(/(http:\/\/|https:\/\/)/).empty?.should be_false
       task.send :check_http
       task.should be_valid
-      task.external_link == 'http://mail.ru'
+      task.external_link.should eq('http://mail.ru')
     end
-
-
 end
