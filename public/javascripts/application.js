@@ -50,7 +50,7 @@ var Application = {
       Application.show_map(latlng,6);
     }
     else{
-      coords(address,show_map,showAddress);
+      Application.coords(address,Application.show_map,Application.showAddress);
      }  
   },
   
@@ -74,7 +74,7 @@ var Application = {
       geocoder.geocode({latLng: latlng.latLng}, function(responses) {
         if (responses && responses.length > 0) {
           var update_address = responses[0].formatted_address;
-          var html = "<center><b>Update your address?</b></center><br>"+update_address+"<br><center><input class='yes' onclick='update_coords(\"" + update_address + "\");' type='button' value='yes' /><input class='no' onclick='return_coords()' type='button' value='no' /></center>";
+          var html = "<center><b>Update your address?</b></center><br>"+update_address+"<br><center><input class='yes' onclick='Application.update_coords(\"" + update_address + "\");' type='button' value='yes' /><input class='no' onclick='Application.return_coords()' type='button' value='no' /></center>";
           infowindow = new google.maps.InfoWindow();
           infowindow.setContent(html);
           infowindow.open(map, marker, { maxWidth: 100 });
@@ -92,7 +92,7 @@ var Application = {
   
   return_coords : function(){
     infowindow.close();
-    coords( $("#user_address").val());
+    Application.coords( $("#user_address").val());
   },
   
   coords : function(address) {
