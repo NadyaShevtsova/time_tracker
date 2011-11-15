@@ -4,13 +4,13 @@ require File.dirname(__FILE__) + '/../spec_helper'
     it "Created User should be valid" do
       user = Factory.create(:user)
       user.should be_valid
-      user.admin.should == false
+      user.admin.should be_false
     end
 
     it "Created user Admin should be valid" do
       user = Factory.create(:admin)
       user.should be_valid
-      user.admin.should == true
+      user.admin.should be_true
     end
 
     it "User with blank username should not be created" do
@@ -22,13 +22,13 @@ require File.dirname(__FILE__) + '/../spec_helper'
     it "should be just_created" do
       user  = Factory.create(:user, :email => "ad@mambo.ru", :username => "alex")
       user.should be_valid
-      user.just_created?.should == true
+      user.just_created?.should be_true
     end
 
     it "should not be just_created" do
       user  = Factory.create(:user, :created_at => "2011-11-06 17:15:10")
       user.should be_valid
-      user.just_created?.should  == false
+      user.just_created?.should be_false
     end
 
     it "created via facebook should be valid" do
