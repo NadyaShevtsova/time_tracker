@@ -13,7 +13,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
     it "should not be created with blank name" do
       project = Factory.build(:project, :name => nil)
       project.should_not be_valid
-      project.errors[:name].should_not be_blank
+      project.should have(1).error_on(:name)    
     end
-    
+         
   end

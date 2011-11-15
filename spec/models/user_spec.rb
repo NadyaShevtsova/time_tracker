@@ -55,5 +55,13 @@ require File.dirname(__FILE__) + '/../spec_helper'
       user.errors[:email].should_not be_blank
     end
 
+    it "password should be String type" do
+      user  = Factory.create(:user)
+      user.should be_valid
+      user.generate_password.should be_a_kind_of(String)
+      user.generate_password.should have(6).characters
+      user.generate_password.should eq(Digest::SHA1.hexdigest("--@#{user.username}-123548")[0,6])
+    end
+
 
   end
