@@ -1,7 +1,7 @@
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 //%script{:src => "http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=ABQIAAAABjOkPfNrB7TiskPIlg4__BTVARu1I5z0BTnpsEdZuIyl8_eAKxRPW_AZmTLA4E-70bVcGMVq420dyA", :type => "text/javascript"}
- 
+
 .orange_stile
   %h4 Your profile
 = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
@@ -23,11 +23,11 @@
     = f.label :new_password
     %i (leave blank if you don't want to change it)
     %br/
-    = f.password_field :password
+    = f.password_field :password, :autocomplete => "off"
   %div
     = f.label :password_confirmation
     %br/
-    = f.password_field :password_confirmation
+    = f.password_field :password_confirmation, :autocomplete => "off"
   %div
     %br
     = f.label :address
@@ -63,5 +63,5 @@
 :javascript
   $(function(){
     initialize();
-  }); 
+  });
 

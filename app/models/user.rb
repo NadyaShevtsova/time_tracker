@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   def apply_omniauth(omniauth)
     self.email = omniauth['user_info']['email'] if omniauth["provider"].eql?("facebook")
     self.username = omniauth['user_info']['nickname'] ? omniauth['user_info']['nickname'] : omniauth['user_info']['email'].split('@').first
-    self.password = self.password_confirmation = Digest::SHA1.hexdigest("--@#{self.username}-123548")[0,6] 
+    self.password = self.password_confirmation = self.generate_password 
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
   end
 
@@ -31,6 +31,10 @@ class User < ActiveRecord::Base
 def update_with_password(params={})
   params.delete(:current_password)
   self.update_without_password(params)
+end
+
+def generate_password
+  return  Digest::SHA1.hexdigest("--@#{self.username}-123548")[0,6] 
 end
 
 end
