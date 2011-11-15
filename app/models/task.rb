@@ -23,8 +23,10 @@ class Task < ActiveRecord::Base
   end
 
   def check_equality_day
-    if self.start_time.to_date != self.end_time.to_date
-      errors.add(:end_time, ": run-time should take only one day")
+    if errors.blank?
+      if self.start_time.to_date != self.end_time.to_date
+        errors.add(:end_time, ": run-time should take only one day")
+      end
     end
   end
 end
