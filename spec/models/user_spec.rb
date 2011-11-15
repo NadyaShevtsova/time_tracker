@@ -23,14 +23,12 @@ require 'ruby-debug'
     it "should be just_created" do
       user  = Factory.create(:user, :email => "ad@mambo.ru", :username => "alex")
       user.should be_valid
-      user.should_not be_new_record
       user.just_created? == true
     end
 
     it "should not be just_created" do
       user  = Factory.create(:user, :created_at => "2011-11-06 17:15:10")
       user.should be_valid
-      user.should_not be_new_record
       user.just_created? == false
     end
     
