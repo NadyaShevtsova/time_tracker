@@ -5,13 +5,13 @@ require 'ruby-debug'
     it "Created User should be valid" do
       user = Factory.create(:user)
       user.should be_valid
-      user.admin == false
+      user.admin.should == false
     end
   
     it "Created user Admin should be valid" do
       user = Factory.create(:admin)
       user.should be_valid
-      user.admin == true
+      user.admin.should == true
     end
   
     it "User with blank username should not be created" do
@@ -23,13 +23,13 @@ require 'ruby-debug'
     it "should be just_created" do
       user  = Factory.create(:user, :email => "ad@mambo.ru", :username => "alex")
       user.should be_valid
-      user.just_created? == true
+      user.just_created?.should == true
     end
 
     it "should not be just_created" do
       user  = Factory.create(:user, :created_at => "2011-11-06 17:15:10")
       user.should be_valid
-      user.just_created? == false
+      user.just_created?.should  == false
     end
     
     it "created via facebook should be valid" do
