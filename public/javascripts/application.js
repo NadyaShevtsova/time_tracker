@@ -17,22 +17,25 @@ $(function() {
 });
 
 var Project = {
-
-add_project : function(){
-  if ( $('#task_project_id option:selected').text() == "add_project" ) {
-     $('.new_project').removeClass("hide");
+  
+  add_project : function(){
+    if ( $('#task_project_id option:selected').text() == "add_project" ) {
+       $('.new_project').removeClass("hide");
+    }
+    else {
+      $('.new_project').addClass("hide");
+      $('#task_project_attributes_name').attr('value', '');
+    }
   }
-  else {
-    $('.new_project').addClass("hide");
-    $('#task_project_attributes_name').attr('value', '');
+};
+
+var Pages = {
+
+  per_page : function(value, direction, sort) {
+    url = window.location.search.replace(/(&|\\?).per_page=\d*/g, '').replace(/\\?page=\d*/g, '').replace(/(&|\\?).direction=(asc|desc)/, '').replace(/(&|\\?).sort=\w*(\.||_)\w*/, '');
+    window.location = url + ((value) ? ((url == '' ? '?':'&') + 'per_page=' +  value):'') + ((direction) ? ("&direction=" + direction) : '') + ((sort) ? ("&sort=" + sort) : '');
   }
-}}
-
-
-function per_page(value, direction, sort) {
-  url = window.location.search.replace(/(&|\\?).per_page=\d*/g, '').replace(/\\?page=\d*/g, '').replace(/(&|\\?).direction=(asc|desc)/, '').replace(/(&|\\?).sort=\w*(\.||_)\w*/, '');
-  window.location = url + ((value) ? ((url == '' ? '?':'&') + 'per_page=' +  value):'') + ((direction) ? ("&direction=" + direction) : '') + ((sort) ? ("&sort=" + sort) : '');
-}
+};
 
 var Map = {
   
