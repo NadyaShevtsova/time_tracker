@@ -16,23 +16,28 @@ $(function() {
   });
 });
 
-
-function add_project(){
-  if ( $('#task_project_id option:selected').text() == "add_project" ) {
-     $('.new_project').removeClass("hide");
+var Project = {
+  
+  add_project : function(){
+    if ( $('#task_project_id option:selected').text() == "add_project" ) {
+       $('.new_project').removeClass("hide");
+    }
+    else {
+      $('.new_project').addClass("hide");
+      $('#task_project_attributes_name').attr('value', '');
+    }
   }
-  else {
-    $('.new_project').addClass("hide");
-    $('#task_project_attributes_name').attr('value', '');
+};
+
+var Pages = {
+
+  per_page : function(value, direction, sort) {
+    url = window.location.search.replace(/(&|\\?).per_page=\d*/g, '').replace(/\\?page=\d*/g, '').replace(/(&|\\?).direction=(asc|desc)/, '').replace(/(&|\\?).sort=\w*(\.||_)\w*/, '');
+    window.location = url + ((value) ? ((url == '' ? '?':'&') + 'per_page=' +  value):'') + ((direction) ? ("&direction=" + direction) : '') + ((sort) ? ("&sort=" + sort) : '');
   }
-}
+};
 
-function per_page(value, direction, sort) {
-  url = window.location.search.replace(/(&|\\?).per_page=\d*/g, '').replace(/\\?page=\d*/g, '').replace(/(&|\\?).direction=(asc|desc)/, '').replace(/(&|\\?).sort=\w*(\.||_)\w*/, '');
-  window.location = url + ((value) ? ((url == '' ? '?':'&') + 'per_page=' +  value):'') + ((direction) ? ("&direction=" + direction) : '') + ((sort) ? ("&sort=" + sort) : '');
-}
-
-var Application = {
+var Map = {
   
   map   	 : null,
   geocoder 	 : null,
@@ -47,10 +52,10 @@ var Application = {
   
     if(address == ""){
       latlng = new google.maps.LatLng(50.4501, 30.5234);
-      Application.show_map(latlng,6);
+      Map.show_map(latlng,6);
     }
     else{
-      Application.coords(address,Application.show_map,Application.showAddress);
+      Map.coords(address,Map.show_map,Map.showAddress);
      }  
   },
   
@@ -74,7 +79,7 @@ var Application = {
       geocoder.geocode({latLng: latlng.latLng}, function(responses) {
         if (responses && responses.length > 0) {
           var update_address = responses[0].formatted_address;
-          var html = "<center><b>Update your address?</b></center><br>"+update_address+"<br><center><input class='yes' onclick='Application.update_coords(\"" + update_address + "\");' type='button' value='yes' /><input class='no' onclick='Application.return_coords()' type='button' value='no' /></center>";
+          var html = "<center><b>Update your address?</b></center><br>"+update_address+"<br><center><input class='yes' onclick='Map.update_coords(\"" + update_address + "\");' type='button' value='yes' /><input class='no' onclick='Map.return_coords()' type='button' value='no' /></center>";
           infowindow = new google.maps.InfoWindow();
           infowindow.setContent(html);
           infowindow.open(map, marker, { maxWidth: 100 });
@@ -92,7 +97,7 @@ var Application = {
   
   return_coords : function(){
     infowindow.close();
-    Application.coords( $("#user_address").val());
+    Map.coords( $("#user_address").val());
   },
   
   coords : function(address) {
@@ -100,12 +105,12 @@ var Application = {
       geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           latlng = results[0].geometry.location;
-          Application.show_map(latlng,13);
-          Application.showAddress(latlng); 
+          Map.show_map(latlng,13);
+          Map.showAddress(latlng); 
         }
         else {
           latlng = new google.maps.LatLng(50.4501, 30.5234);
-          Application.show_map(latlng,6);
+          Map.show_map(latlng,6);
           $('input[type="button"]').removeClass("hide");
           return false;
         }

@@ -9,7 +9,7 @@
 
   = f.label :project_name
   %br
-  = f.select :project_id, ["add_project"] + Project.all.sort_by{ |k| k['name']}.collect{|p| [p.name, p.id]}, {:prompt => 'Select a project'}, {:onchange => "add_project()"}
+  = f.select :project_id, ["add_project"] + Project.all.sort_by{ |k| k['name']}.collect{|p| [p.name, p.id]}, {:prompt => 'Select a project'}, {:onchange => "Project.add_project()"}
   %br
   
   %div{:class => "new_project #{(!params[:task].blank? and params[:task][:project_id].eql?("add_project")) ? '' : 'hide'}"}
