@@ -62,6 +62,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
       user.generate_password.should have(6).characters
       user.generate_password.should eq(Digest::SHA1.hexdigest("--@#{user.username}-123548")[0,6])
     end
-
-
   end
+
+

@@ -31,5 +31,6 @@ group :test do
   gem 'factory_girl_rails'
   gem 'mocha'
   gem 'spork'
+  gem 'email_spec'
 end
 
