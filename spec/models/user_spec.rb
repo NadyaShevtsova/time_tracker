@@ -55,5 +55,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
       user.errors[:email].should_not be_blank
     end
 
-
   end
+
+
