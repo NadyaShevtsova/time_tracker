@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
   describe Task do
     it "should be valid" do
       task = Factory.create(:task)
-      task.should_not be_new_record
       task.should be_valid
     end
     
