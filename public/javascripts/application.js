@@ -32,73 +32,84 @@ function per_page(value, direction, sort) {
   window.location = url + ((value) ? ((url == '' ? '?':'&') + 'per_page=' +  value):'') + ((direction) ? ("&direction=" + direction) : '') + ((sort) ? ("&sort=" + sort) : '');
 }
 
-
-var map  	= null;
-var geocoder 	= null;
-var marker      = null;
-
-function initialize() {
-  address = $("#user_address").val();
+var Application = {
   
-  map = new GMap2(document.getElementById("map_canvas"));
-  map.addControl(new GSmallMapControl());
-  map.addControl(new GMapTypeControl());
-  geocoder = new GClientGeocoder();
+  map   	 : null,
+  geocoder 	 : null,
+  marker     : null,
+  infowindow : null,
 
-  if(address == ""){
-    if (GBrowserIsCompatible()) {
-      map.setCenter(new GLatLng(50.4501, 30.5234), 6);
+  initialize : function() {
+    address = $("#user_address").val();
+    geocoder = new google.maps.Geocoder();
+  
+    var latlng; 
+  
+    if(address == ""){
+      latlng = new google.maps.LatLng(50.4501, 30.5234);
+      Application.show_map(latlng,6);
+    }
+    else{
+      Application.coords(address,Application.show_map,Application.showAddress);
+     }  
+  },
+  
+  show_map : function(latlng,zoom){
+    myOptions = {
+      zoom: zoom,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  },
+  
+  showAddress : function(latlng) {
+    $('input[type="button"]').addClass("hide");
+    var marker = new google.maps.Marker({
+      position: latlng, 
+      map: map, 
+      draggable: true
+    });   
+    google.maps.event.addListener(marker, 'dragend', function(latlng) {
+      geocoder.geocode({latLng: latlng.latLng}, function(responses) {
+        if (responses && responses.length > 0) {
+          var update_address = responses[0].formatted_address;
+          var html = "<center><b>Update your address?</b></center><br>"+update_address+"<br><center><input class='yes' onclick='Application.update_coords(\"" + update_address + "\");' type='button' value='yes' /><input class='no' onclick='Application.return_coords()' type='button' value='no' /></center>";
+          infowindow = new google.maps.InfoWindow();
+          infowindow.setContent(html);
+          infowindow.open(map, marker, { maxWidth: 100 });
+        } else {
+          return false;
+        }
+      });
+    });
+  },
+  
+  update_coords : function(update_address){
+    $.get('/registrations/update_address?update_address=' +update_address, function(){$('#user_address').val(update_address);});
+    infowindow.close();
+  },
+  
+  return_coords : function(){
+    infowindow.close();
+    Application.coords( $("#user_address").val());
+  },
+  
+  coords : function(address) {
+     if (geocoder) {
+      geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          latlng = results[0].geometry.location;
+          Application.show_map(latlng,13);
+          Application.showAddress(latlng); 
+        }
+        else {
+          latlng = new google.maps.LatLng(50.4501, 30.5234);
+          Application.show_map(latlng,6);
+          $('input[type="button"]').removeClass("hide");
+          return false;
+        }
+      });
     }
   }
-  else{
-    showAddress(address);
-  }
-}
-function showAddress(address) {
-  $('input[type="button"]').addClass("hide");
-  if (geocoder) {
-    geocoder.getLatLng(
-        address, 
-        function(point) { 
-          if (!point) { 
-            point = new GLatLng(50.4501, 30.5234);
-            map.setCenter(point, 6); 
-            $('input[type="button"]').removeClass("hide");
-            return false;
-
-          } 
-          map.setCenter(point, 13); 
-          marker = new GMarker(point, {draggable: true});
-
-            GEvent.addListener(marker, "dragend", function(latlng) {
-          //marker.openInfoWindowHtml("Just bouncing along...");
-              geocoder.getLocations(latlng, function(response){
-                if (!response || response.Status.code != 200) {
-                  return false;
-                } 
-                else {
-                  var update_address = response.Placemark[0].address;
-                  var html = "<center><b>Update your address?</b></center><br>"+update_address+"<br><center><input class='yes' onclick='update_coords(\"" + update_address + "\")' type='button' value='yes' /><input class='no' onclick='return_coords(\"" + address + "\")' type='button' value='no' /></center>";  
-                    marker.openInfoWindowHtml(html, { maxWidth: 300 });
-                  }
-              });
-            });
-        
-          map.addOverlay(marker);
-      }
-    );
-  }
-}
-
-function update_coords(update_address){
-  $.get('/registrations/update_address?update_address=' +update_address, function(){$('#user_address').val(update_address);});
-  map.removeOverlay(marker);
-  showAddress(update_address);
-  marker.closeInfoWindowHtml();
-}
-function return_coords(address){
-  map.removeOverlay(marker);
-  showAddress(address);
-}
-
- 
+};
