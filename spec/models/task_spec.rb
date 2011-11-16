@@ -1,11 +1,11 @@
-require 'spec_helper'
- 
+require "#{Rails.root}/spec/spec_helper"
+
   describe Task do
     it "should be valid" do
       task = Factory.create(:task)
       task.should be_valid
     end
-    
+
     it "with blank task_name, description, start_time, end_time should not be created" do
       task = Factory.build(:task, :task_name => nil, :description => nil,:start_time => '', :end_time => '')
       task.should_not be_valid
@@ -26,7 +26,7 @@ require 'spec_helper'
       task.should_not be_valid
       task.errors[:end_time].should_not be_blank
     end
-    
+
     it "should not be created if day of :start_time not equal day of :end_time" do
       task = Factory.build(:task, :start_time => '2011-11-01 09:00:00', :end_time => '2011-11-02 12:55:00')
       task.should_not be_valid

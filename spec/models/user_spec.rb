@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "#{Rails.root}/spec/spec_helper"
 
   describe User do
     it "Created User should be valid" do

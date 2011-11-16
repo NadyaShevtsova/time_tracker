@@ -1,5 +1,5 @@
 require 'spec_helper'
- 
+
 describe "Signup Email" do
     include EmailSpec::Helpers
     include EmailSpec::Matchers
@@ -11,8 +11,7 @@ describe "Signup Email" do
       @email = Notifier.welcome(@user, "1o12ks")
     end
 
-    it "should be set to be deliveredrequire File.dirname(__FILE__) + '/../spec_helper'
- to the email passed in" do
+    it "should be set to be delivered to the email passed in" do
       @email.should deliver_to(@user.email)
     end
 

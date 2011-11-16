@@ -1,5 +1,5 @@
-require 'spec_helper'
- 
+require "#{Rails.root}/spec/spec_helper"
+
   describe Project do
     it "should not be valid with the same names" do
       project = Factory.create(:project, :name => "Schaefer-Haley")
@@ -13,7 +13,7 @@ require 'spec_helper'
     it "should not be created with blank name" do
       project = Factory.build(:project, :name => nil)
       project.should_not be_valid
-      project.should have(1).error_on(:name)    
+      project.should have(1).error_on(:name)
     end
-         
+
   end
