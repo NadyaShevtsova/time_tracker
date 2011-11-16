@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
  
   describe Project do
     it "should not be valid with the same names" do

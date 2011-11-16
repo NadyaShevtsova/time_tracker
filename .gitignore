@@ -6,3 +6,4 @@ tmp/
 .rvmrc
 config/database.yml
 .sass-cache/*
+coverage/*
