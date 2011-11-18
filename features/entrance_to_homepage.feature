@@ -18,3 +18,18 @@ Feature: Entrance to homepage
     And I fill in "Password" with "user"
     When I press "Sign in" 
     Then I should see "Signed in successfully."
+
+
+  Scenario: Entrance on site via form sign-up
+    Given  I am on the home page
+    When I follow "Sign up"
+    Then I should see "Sign up"
+    And I fill in "Email" with "test@gmail.com"
+    And I fill in "Username" with "test"
+    And I fill in "Password" with "test"
+    And I fill in "Password confirmation" with "test"
+    When I press "Sign up"
+    Then I should see "Welcome! You have signed up successfully."
+#    Then show me the page
+
+
