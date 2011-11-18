@@ -9,7 +9,7 @@ Feature: Entrance to homepage
     When I press "Sign in" 
     Then I should see "Invalid email, username or password."
 
-  Scenario: Entrance on site  if I has been registrated olready
+  Scenario: Entrance on site  if I has been registrated already
     Given I have 1 user in the system
 
 #    Then show me the page
@@ -30,6 +30,5 @@ Feature: Entrance to homepage
     And I fill in "Password confirmation" with "test"
     When I press "Sign up"
     Then I should see "Welcome! You have signed up successfully."
-#    Then show me the page
 
 
