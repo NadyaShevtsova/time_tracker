@@ -16,4 +16,12 @@ Given "User admin presens in the system" do
   step 'Entrance on site'
 end
 
+Given "I was logined as user" do 
+  step 'I have 1 user in the system'
+  step 'I fill in "Username" with "user"'
+  step 'I fill in "Password" with "user"'
+  step 'I press "Sign in"'
+  step 'I should see "Signed in successfully."'
+end
+
 

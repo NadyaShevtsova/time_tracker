@@ -9,12 +9,13 @@ Feature: Entrance to homepage
     Then I should see "Invalid email, username or password." within "#flash_alert"
 
   Scenario: Entrance on site  if I has been registrated already
-    Given I have 1 user in the system
+    Given I was logined as user
+    #    Given I have 1 user in the system
 #    Then show me the page
-    And I fill in "Username" with "user"
-    And I fill in "Password" with "user"
-    When I press "Sign in" 
-    Then I should see "Signed in successfully."
+#    And I fill in "Username" with "user"
+#    And I fill in "Password" with "user"
+#    When I press "Sign in" 
+#    Then I should see "Signed in successfully."
 
 
   Scenario: Entrance on site via form sign-up
