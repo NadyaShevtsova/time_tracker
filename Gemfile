@@ -25,6 +25,8 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'cucumber-rails'
+  gem 'capybara'
 end
 
 group :test do
@@ -34,5 +36,6 @@ group :test do
   gem 'email_spec'
   gem 'rcov'
   gem 'database_cleaner'
+  gem 'launchy'
 end
 
