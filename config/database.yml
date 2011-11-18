@@ -5,7 +5,7 @@ development:
   username: root
   password:
 
-test:
+test: &test
   adapter: mysql2
   database: time_tracker_test
   host: localhost
@@ -20,3 +20,6 @@ production:
   password: 
   
  
+
+cucumber:
+  <<: *test
