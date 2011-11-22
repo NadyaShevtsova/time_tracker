@@ -8,7 +8,14 @@ Feature: I am on  home page
     follow to my profile
     view report for specific week if I am admin
 
+  @javascript
   Scenario: I cannt create new task with empty fields 
-    Given I was logined as user
-    And I follow "New Task" within ".new_task_link"
-    Then I should see "New task" within "h1"
+    Given I was entered to the system as user
+    And I fill in "Task name" with "myTask"
+    When I press "Save"  
+    #    Then should see "Task name can't be blank"
+    #Then should see "Project can't be blank"
+    #Then should see "Description can't be blank"
+    #Then should see "End time must be at least Start time"
+    Then show me the page
+
