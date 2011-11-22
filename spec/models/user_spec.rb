@@ -19,13 +19,13 @@ require "#{Rails.root}/spec/spec_helper"
       user.errors[:username].should_not be_blank
     end
 
-    it "should be just_created" do
+    it "should be just_created?" do
       user  = Factory.create(:user, :email => "ad@mambo.ru", :username => "alex")
       user.should be_valid
       user.just_created?.should be_true
     end
 
-    it "should not be just_created" do
+    it "should not be just_created?" do
       user  = Factory.create(:user, :created_at => "2011-11-06 17:15:10")
       user.should be_valid
       user.just_created?.should be_false
