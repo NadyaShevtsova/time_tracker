@@ -27,14 +27,8 @@ class User < ActiveRecord::Base
     self.created_at > 30.seconds.ago
   end
 
-
-def update_with_password(params={})
-  params.delete(:current_password)
-  self.update_without_password(params)
-end
-
-def generate_password
-  return  Digest::SHA1.hexdigest("--@#{self.username}-123548")[0,6] 
-end
+  def generate_password
+    return  Digest::SHA1.hexdigest("--@#{self.username}-123548")[0,6] 
+  end
 
 end
