@@ -14,6 +14,8 @@ class Task < ActiveRecord::Base
 
   before_validation :check_http
   validate :check_equality_day
+#  include ActiveModel::CheckEqualityDayValidator 
+#  validates_with CheckEqualityDayValidator 
 
 
   private
