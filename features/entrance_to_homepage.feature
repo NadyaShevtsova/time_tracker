@@ -23,12 +23,8 @@ Feature: Entrance to homepage
     Then I should see "Welcome! You have signed up successfully." within "#flash_notice" 
 
   Scenario: Entrance user admin on site 
-    Given User admin presens in the system
-    And I fill in "Username" with "admin"
-    And I fill in "Password" with "admin"
-    When I press "Sign in" 
-    Then I should see "Signed in successfully."
-
+    Given I was logined as admin
+   
 
 
 

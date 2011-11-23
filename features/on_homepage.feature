@@ -1,4 +1,4 @@
-Feature: I am on  home page
+Feature: I am user and I am on  home page
   If I am on home page I can be able to
     create new task
     edit existing task
@@ -8,14 +8,14 @@ Feature: I am on  home page
     follow to my profile
     view report for specific week if I am admin
 
-  @javascript
-  Scenario: I cannt create new task with empty fields 
-    Given I was entered to the system as user
-    And I fill in "Task name" with "myTask"
-    When I press "Save"  
+#  @javascript
+#  Scenario: I cannt create new task with empty fields 
+#    Given I am user and I follow to New Task
+#    And I fill in "Task name" with "myTask"
+#    When I press "Save"  
     #    Then should see "Task name can't be blank"
     #Then should see "Project can't be blank"
     #Then should see "Description can't be blank"
     #Then should see "End time must be at least Start time"
-    Then show me the page
+    #    Then show me the page
 

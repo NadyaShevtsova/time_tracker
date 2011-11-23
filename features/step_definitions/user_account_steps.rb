@@ -22,6 +22,17 @@ Given "I was logined as user" do
   step 'I fill in "Password" with "user"'
   step 'I press "Sign in"'
   step 'I should see "Signed in successfully."'
+  step 'I should not see "Reports for week"'
 end
+
+Given "I was logined as admin" do 
+  step 'User admin presens in the system'
+  step 'I fill in "Username" with "admin"'
+  step 'I fill in "Password" with "admin"'
+  step 'I press "Sign in"'
+  step 'I should see "Signed in successfully."'
+  step 'I should see "Reports for week"'
+end
+
 
 
