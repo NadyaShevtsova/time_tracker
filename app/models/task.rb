@@ -1,3 +1,5 @@
+require Rails.root.join("lib/check_equality_day_validator.rb")
+
 class Task < ActiveRecord::Base
   belongs_to :project
   belongs_to :user
@@ -13,22 +15,12 @@ class Task < ActiveRecord::Base
   validates :external_link, :format => {:with => /((http|https):\/\/|[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+.*)$/}, :allow_blank => true
 
   before_validation :check_http
-  validate :check_equality_day
-#  include ActiveModel::CheckEqualityDayValidator 
-#  validates_with CheckEqualityDayValidator 
+  validates_with CheckEqualityDayValidator
 
 
   private
 
   def check_http
      self.external_link = "http://#{self.external_link}" if self.external_link.grep(/(http:\/\/|https:\/\/)/).empty? and !self.external_link.blank?
-  end
-
-  def check_equality_day
-    if errors.blank?
-      if self.start_time.to_date != self.end_time.to_date
-        errors.add(:end_time, ": run-time should take only one day")
-      end
-    end
   end
 end
