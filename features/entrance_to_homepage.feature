@@ -3,13 +3,12 @@ Feature: Entrance to homepage
 
   Scenario: Entrance on site  if I have no account
     Given Entrance on site
-    And I fill in "Username" with "user1"
-    And I fill in "Password" with "user1"
-    When I press "Sign in" 
+    When I am logged in as "user1" with password "user1"
     Then I should see "Invalid email, username or password." within "#flash_alert"
 
   Scenario: Entrance on site  if I has been registrated already
-    Given I am logged in as user
+    Given Logged in as "Piter" 
+    
 
   Scenario: Entrance on site via form sign-up
     Given  I am on the home page
@@ -22,13 +21,9 @@ Feature: Entrance to homepage
     When I press "Sign up"
     Then I should see "Welcome! You have signed up successfully." within "#flash_notice" 
 
-#  Scenario: Entrance user admin on site 
-#    Given I am logged in as admin
    Scenario: Entrance user admin on site 
-    Given User admin presens in the system
-    When I am logged in as "admin" with password "admin"
-    Then I should see "Signed in successfully." 
-
+    Given Logged in as "admin"
+   
 
 
 

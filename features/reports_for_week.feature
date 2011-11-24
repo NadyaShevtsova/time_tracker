@@ -11,7 +11,7 @@ Feature: I am admin and I am on  home page
 
 
 #  Scenario: I am admin and I follow to week (2011/10/31 - 2011/11/06) 
-#    Given I am logged in as user
+#    Given Logged in as "admin"
 #    And I follow "week (2011/10/31 - 2011/11/06)"
 #    And I should see "Report for week"  
 
