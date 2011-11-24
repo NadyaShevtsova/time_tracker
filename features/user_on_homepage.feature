@@ -19,14 +19,9 @@ Feature: I am user and I am on  home page
     #Then should see "End time must be at least Start time"
     #    Then show me the page
 
-
-#  Scenario: I can see 3 projects  
-#   Given Logged in as "admin"
-#   And I have 11 tasks for user in the system
-   #   Then should see "Task name can't be blank"
-   #   Then should see "Project can't be blank"
-   #   Then should see "Description can't be blank"
-   #   Then should see "End time must be at least Start time"
-   #   Then show me the page
+ @javascript
+  Scenario: I can see 3 projects  
+   Given User "Piter" has "5" projects and "2" tasks in the system
+   #    Then show me the page
 
 

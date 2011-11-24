@@ -23,6 +23,7 @@ Feature: Entrance to homepage
 
    Scenario: Entrance user admin on site 
     Given Logged in as "admin"
+
    
 
 
