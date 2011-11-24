@@ -16,7 +16,7 @@ Given "User admin presens in the system" do
   step 'Entrance on site'
 end
 
-Given "I was logined as user" do 
+Given /I am logged in as user/ do 
   step 'I have 1 user in the system'
   step 'I fill in "Username" with "user"'
   step 'I fill in "Password" with "user"'
@@ -25,7 +25,7 @@ Given "I was logined as user" do
   step 'I should not see "Reports for week"'
 end
 
-Given "I was logined as admin" do 
+Given "I am logged in as admin" do 
   step 'User admin presens in the system'
   step 'I fill in "Username" with "admin"'
   step 'I fill in "Password" with "admin"'

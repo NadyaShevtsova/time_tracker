@@ -217,3 +217,13 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
+When /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, password|
+  
+  visit new_user_session_path
+  fill_in("user_username", :with => username)
+  fill_in("user_password", :with => password)
+  click_button("Sign in")
+  User.find_by_username(username).should_not be_nil
+end
+

@@ -9,7 +9,7 @@ Feature: Entrance to homepage
     Then I should see "Invalid email, username or password." within "#flash_alert"
 
   Scenario: Entrance on site  if I has been registrated already
-    Given I was logined as user
+    Given I am logged in as user
 
   Scenario: Entrance on site via form sign-up
     Given  I am on the home page
@@ -22,9 +22,13 @@ Feature: Entrance to homepage
     When I press "Sign up"
     Then I should see "Welcome! You have signed up successfully." within "#flash_notice" 
 
-  Scenario: Entrance user admin on site 
-    Given I was logined as admin
-   
+#  Scenario: Entrance user admin on site 
+#    Given I am logged in as admin
+   Scenario: Entrance user admin on site 
+    Given User admin presens in the system
+    When I am logged in as "admin" with password "admin"
+    Then I should see "Signed in successfully." 
+
 
 
 
