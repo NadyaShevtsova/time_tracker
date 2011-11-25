@@ -15,8 +15,8 @@ Feature: I am on  my_profile page
     #    And I fill in "user_address" with "2407 Аллисон-авеню, Панама Сити Бич, Флорида 32408, Соединённые Штаты Америки"
     When I press "Update"
     Then I should see "You updated your account successfully."
-    #    Then I should see "Signed in as "piter@piter.com. Not you?"
-   #    Then show me the page
+    Then I should see "Signed in as piter@piter.com. Not you?"
+    #   Then show me the page
 
   Scenario: I cann't change my password if field Password is empty and fields New password and Password confirmation are different   
     Given I am "Piter" and I follow "Your profile" within "#link_profile" 
