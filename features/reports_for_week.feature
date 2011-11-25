@@ -10,9 +10,8 @@ Feature: I am admin and I am on  home page
     review reports for week
 
 
-#  Scenario: I am admin and I follow to week (2011/10/31 - 2011/11/06) 
-#    Given Logged in as "admin"
-#    And I follow "week (2011/10/31 - 2011/11/06)"
-#    And I should see "Report for week"  
+  Scenario: I am admin and I follow to week (2011/10/31 - 2011/11/06) 
+    Given I am "admin" and I follow "week (2011/11/28 - 2011/12/04)"
+    And I should see "Report for week"  
 
 
