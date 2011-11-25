@@ -14,4 +14,8 @@ Feature: I am admin and I am on  home page
     Given I am "admin" and I follow "week (2011/11/28 - 2011/12/04)"
     And I should see "Report for week"  
 
-
+  Scenario: I can return back to homepage from page report for week  
+    Given I am "admin" and I follow "week (2011/11/28 - 2011/12/04)" 
+    And I should see "Report for week"
+    When I follow "Back"
+    Then I should see "Your tasks for today" within "h2"

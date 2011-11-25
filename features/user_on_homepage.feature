@@ -8,7 +8,7 @@ Feature: I am user and I am on  home page
     follow to my profile
     view report for specific week if I am admin
 
-  @javascript
+#  @javascript
   Scenario: I cannt create new task with empty fields 
     Given I am "Piter" and I follow "New Task" within ".new_task_link"
     And I should see "New task" within "h1"
