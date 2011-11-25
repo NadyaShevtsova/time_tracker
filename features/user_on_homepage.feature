@@ -21,7 +21,7 @@ Feature: I am user and I am on  home page
 
  @javascript
   Scenario: I can see 3 projects  
-   Given User "Piter" has "5" projects and "2" tasks in the system
+   Given User "Piter" has "5" projects and 2* "2" +1 tasks in the system
    #    Then show me the page
 
 
