@@ -38,4 +38,8 @@ Feature: I am on  my_profile page
     Then I should see "Password doesn't match confirmation" within "#error_explanation"
     Then I should see "Current password can't be blank" within "#error_explanation"
 
-
+  Scenario: I can return back to homepage  
+    Given I am "Piter" and I follow "Your profile" within "#link_profile" 
+    When I follow "Back to tasks"
+    Then I should see "Your tasks for today" within "h2"
+    
