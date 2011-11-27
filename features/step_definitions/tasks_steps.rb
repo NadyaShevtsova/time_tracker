@@ -1,9 +1,7 @@
-Given /^User "([^\"]*)" has (\d+) projects and (\d+) tasks from (\d+) days ago to (\d+) days since in the system$/ do |username, projects, tasks, from, to|
-  step "Logged in as \"#{username}\""
-
+Given /^User "([^\"]*)" has (\d+) projects and (\d+) tasks from (\d+) days ago to (\d+) days since$/ do |username, projects, tasks, from, to|
+  step %{I have user "#{username}" in the system}
 
   user1 = User.find_by_username(username)
-
   projects.to_i.times do |project_index|
     project = Project.create(:name => "Company name #{project_index}")
 
@@ -21,4 +19,6 @@ Given /^User "([^\"]*)" has (\d+) projects and (\d+) tasks from (\d+) days ago t
       end
     end
   end
+
+  step "Logged in as \"#{username}\""
 end

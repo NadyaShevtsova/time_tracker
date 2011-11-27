@@ -20,9 +20,9 @@ Feature: I am user and I am on  home page
     #Then should see "End time must be at least Start time"
     Then show me the page
 
-# @javascript
+  @javascript
   Scenario: I can see 3 projects  
-   Given User "Piter" has "5" projects and 2* "2" +1 tasks in the system
-   #    Then show me the page
+   Given User "Piter" has 5 projects and 5 tasks from 2 days ago to 3 days since
+   Then show me the page
 
 
