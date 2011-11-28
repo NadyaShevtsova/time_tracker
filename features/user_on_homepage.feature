@@ -23,11 +23,11 @@ Feature: I am user and I am on  home page
 
   @javascript
   Scenario: I can see 3 projects  
-   Given User "Piter" has 5 projects and 5 tasks from 2 days ago to 3 days since
-   And should see "Description 2" within "table#tasks"
-   And should not see "Description 3" within "table#tasks"
+   Given User "Piter" has 5 projects, and each project has 2 tasks, each task has 2 descriptions from 2 days ago to 3 days since
+   And should see "Description 121" within "table#tasks"
+   And should not see "Description 122" within "table#tasks"
    When I follow "2" within ".pagination"
-   Then I should see "Description 4" within "table#tasks"
+   Then I should see "Description 122" within "table#tasks"
    Then show me the page
 
 
