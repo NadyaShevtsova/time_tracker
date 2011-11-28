@@ -8,16 +8,17 @@ Feature: I am user and I am on  home page
     follow to my profile
     view report for specific week if I am admin
 
-#  @javascript
-  Scenario: I cannt create new task with empty fields 
+  @javascript
+  Scenario: I cann't create new task with empty fields 
     Given I am "Piter" and I follow "New Task" within ".new_task_link"
     And I should see "New task" within "h1"
-#    And I fill in "Task name" with "myTask"
-#    When I press "Save"  
-    #    Then should see "Task name can't be blank"
-    #Then should see "Project can't be blank"
-    #Then should see "Description can't be blank"
-    #Then should see "End time must be at least Start time"
+    And I wait for the ajax request to finish
+   #    And I fill in "Task name" with "myTask"
+    And I press "Save"  
+    Then should see "Task name can't be blank"
+    Then should see "Project can't be blank"
+    Then should see "Description can't be blank"
+    Then should see "End time must be at least Start time"
     Then show me the page
 
   @javascript
