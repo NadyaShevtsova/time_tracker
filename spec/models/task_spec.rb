@@ -6,11 +6,10 @@ require "#{Rails.root}/spec/spec_helper"
       task.should be_valid
     end
 
-    it "with blank task_name, description, start_time, end_time should not be created" do
-      task = Factory.build(:task, :task_name => nil, :description => nil,:start_time => '', :end_time => '')
+    it "with blank task_name, start_time, end_time should not be created" do
+      task = Factory.build(:task, :task_name => nil, :start_time => '', :end_time => '')
       task.should_not be_valid
       task.errors[:task_name].should_not be_blank
-      task.errors[:description].should_not be_blank
       task.errors[:start_time].should_not be_blank
       task.errors[:end_time].should_not be_blank
     end
