@@ -37,4 +37,29 @@ Feature: I am user and I am on  home page
     Then should see "End time must be at least Start time"
     Then show me the page
 
+  @javascript
+  Scenario: I can create new task, edit and destroy one 
+    Given I am "Piter" and I follow "New Task" within ".new_task_link"
+    And I should see "New task" within "h1"
+    And I wait for the ajax request to finish
+    And I select "add_project" from "task_project_id"
+    And I fill in "task_project_attributes_name" with "Project 1"
+    And I fill in "Task name" with "myTask"
+    And I fill in "task_description" with "Description made by Piter"
+    And I fill in "task_start_time" with "14:00"
+    And I fill in "task_end_time" with "17:00"
+    And I fill in "task_external_link" with "mail.ru"
+    When I press "Save"  
+    Then I should see "Task added success" within "#flash_notice"
+    When I follow "Edit"
+    Then I should see "Editing task"
+    And I wait for the ajax request to finish
+    And I fill in "Task name" with "new myTask"
+    And I press "Save"
+    Then I should see "Task was successfully updated." within "#flash_notice" 
+    #    When I follow "Destroy"
+    #    Then I should see "Are you sure?"
+    Then show me the page
+
+
   
