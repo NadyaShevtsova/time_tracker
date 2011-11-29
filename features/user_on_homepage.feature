@@ -25,9 +25,16 @@ Feature: I am user and I am on  home page
   Scenario: I can see 3 projects  
    Given User "Piter" has 5 projects, and each project has 2 tasks, each task has 2 descriptions from 2 days ago to 3 days since
    And should see "Description 121" within "table#tasks"
-   And should not see "Description 122" within "table#tasks"
    When I follow "2" within ".pagination"
    Then I should see "Description 122" within "table#tasks"
+   When I follow "Next" within ".pagination"
+   Then I should see "Description 311" within "table#tasks"
+   When I select "5" from "per_page"
+   Then I should see "Description 211" within "table#tasks"
+   When I select "all" from "per_page"
+   Then I should see "Description 511" within "table#tasks"
+   When I follow "30" within ".ui-datepicker-calendar"
+   Then I should see "2011/11/30 Description 511" within "table#tasks"
    Then show me the page
 
 
