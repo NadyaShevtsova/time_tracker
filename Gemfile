@@ -20,13 +20,14 @@ gem 'omniauth'
 
 group :development do
   gem "nifty-generators"
-  gem 'ruby-debug'
 end
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'cucumber-rails'
   gem 'capybara'
+  gem 'ruby-debug'
+
 end
 
 group :test do

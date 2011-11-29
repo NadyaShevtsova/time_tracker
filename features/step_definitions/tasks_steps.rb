@@ -1,12 +1,13 @@
 Given /^User "([^\"]*)" has (\d+) projects, and each project has (\d+) tasks, each task has (\d+) descriptions from (\d+) days ago to (\d+) days since$/ do |username, projects, tasks, descriptions, from, to|
   step %{I have user "#{username}" in the system}
 
-  user1 = User.find_by_username(username)
-
   if(username == "admin")
+    step "I have user \"Antony\" in the system"
     user1 = User.find_by_username("Antony")
+  else
+    user1 = User.find_by_username(username)
   end
-
+  
   projects.to_i.times do |project_index|
     project = Project.create(:name => "Company name #{project_index.next}")
 

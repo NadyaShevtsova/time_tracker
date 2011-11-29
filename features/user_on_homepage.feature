@@ -35,7 +35,6 @@ Feature: I am user and I am on  home page
     Then should see "Project can't be blank"
     Then should see "Description can't be blank"
     Then should see "End time must be at least Start time"
-    Then show me the page
 
   @javascript
   Scenario: I can create new task, edit and destroy one 
