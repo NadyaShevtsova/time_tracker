@@ -23,11 +23,12 @@
   = f.text_field :task_name
   %br
 
-
-  = f.label :description
-  %br
-  = f.text_area :description,:rows => 4, :cols => 50
-  %br
+  #task_description
+    = f.fields_for :descriptions do |description|
+      = description.label :description_name, "Description"
+      %br
+      = description.text_area :description_name,:rows => 4, :cols => 50
+      
 
   - date_format = current_user.admin ? "%m/%d/%Y %H:%M" : "%H:%M"
 

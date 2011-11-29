@@ -3,12 +3,13 @@ require Rails.root.join("lib/check_equality_day_validator.rb")
 class Task < ActiveRecord::Base
   belongs_to :project
   belongs_to :user
+  has_many   :descriptions, :dependent => :destroy
 
   accepts_nested_attributes_for :project
+  accepts_nested_attributes_for :descriptions
 
   validates :task_name, :presence => true
   validates :project, :presence => true
-  validates :description, :presence => true
   validates :start_time, :presence => true, :timeliness => {:type => :datetime}
   validates :end_time, :presence => true, :timeliness => {:after => :start_time, :type => :datetime, :after_message => "must be at least Start time"}
   validates :user, :presence => true

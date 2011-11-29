@@ -11,6 +11,7 @@ class TasksController < ApplicationController
   def new
     @task = Task.new
     @task.build_project
+    @task.descriptions.build
     render :layout => "overlay"
   end
 
