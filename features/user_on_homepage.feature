@@ -55,8 +55,9 @@ Feature: I am user and I am on  home page
     And I fill in "Task name" with "new myTask"
     And I press "Save"
     Then I should see "Task was successfully updated." within "#flash_notice" 
-    #    When I follow "Destroy"
-    #    Then I should see "Are you sure?"
+    When I follow "Destroy"
+    When I confirm popup
+    Then I should not see "Project 1"
 
 
   
