@@ -14,15 +14,15 @@ Given /^User "([^\"]*)" has (\d+) projects, and each project has (\d+) tasks, ea
     (-from.to_i..to.to_i).each do |period|
       tasks.to_i.times do |task_id|
         descriptions.to_i.times do |number_descriptions|
-          Task.create({
-          :user => user1,
-          :project_id => project.id,
-          :description => "#{ period.days.since.strftime("%Y/%m/%d")} Description #{project_index.next}#{task_id.next}#{number_descriptions.next}",
-          :task_name => "Task name #{project_index.next}#{task_id.next}",
-          :external_link => "http://mail.ru",
-          :start_time => period.days.since.strftime("%Y/%m/%d 11:00"),
-          :end_time => period.days.since.strftime("%Y/%m/%d 14:55")
+          task = Task.create({
+            :user => user1,
+            :project_id => project.id,
+            :task_name => "Task name #{project_index.next}#{task_id.next}",
+            :external_link => "http://mail.ru",
+            :start_time => period.days.since.strftime("%Y/%m/%d 11:00"),
+            :end_time => period.days.since.strftime("%Y/%m/%d 14:55")
           })
+          Description.create(:task_id => task.id, :description_name => "#{ period.days.since.strftime("%Y/%m/%d")} Description #{project_index.next}#{task_id.next}#{number_descriptions.next}")
         end
       end
     end

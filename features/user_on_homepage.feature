@@ -10,20 +10,19 @@ Feature: I am user and I am on  home page
 
   @javascript
   Scenario: I can see my tasks on selected day, select number items on page  
-   Given User "Piter" has 5 projects, and each project has 2 tasks, each task has 2 descriptions from 2 days ago to 3 days since
-   And should see "Description 121" within "table#tasks"
+   Given User "Piter" has 5 projects, and each project has 2 tasks, each task has 1 descriptions from 2 days ago to 3 days since
+   And should see "Description 211" within "table#tasks"
    When I follow "2" within ".pagination"
-   Then I should see "Description 122" within "table#tasks"
+   Then I should see "Description 321" within "table#tasks"
    When I follow "Next" within ".pagination"
-   Then I should see "Description 311" within "table#tasks"
-   When I select "5" from "per_page"
-   Then I should see "Description 211" within "table#tasks"
-   When I select "all" from "per_page"
    Then I should see "Description 511" within "table#tasks"
-   When I follow "30" within ".ui-datepicker-calendar"
-   Then I should see "2011/11/30 Description 511" within "table#tasks"
-   Then show me the page
-
+   When I select "5" from "per_page"
+   Then I should see "Description 311" within "table#tasks"
+   When I select "all" from "per_page"
+   Then I should see "Description 521" within "table#tasks"
+   When I follow "2" within ".ui-datepicker-calendar"
+   Then I should see "2011/12/02 Description 511" within "table#tasks"
+   
   @javascript
   Scenario: I cann't create new task with empty fields 
     Given I am "Piter" and I follow "New Task" within ".new_task_link"
@@ -33,7 +32,7 @@ Feature: I am user and I am on  home page
     And I press "Save"  
     Then should see "Task name can't be blank"
     Then should see "Project can't be blank"
-    Then should see "Description can't be blank"
+    Then should see "Descriptions description name can't be blank"
     Then should see "End time must be at least Start time"
 
   @javascript
@@ -44,7 +43,7 @@ Feature: I am user and I am on  home page
     And I select "add_project" from "task_project_id"
     And I fill in "task_project_attributes_name" with "Project 1"
     And I fill in "Task name" with "myTask"
-    And I fill in "task_description" with "Description made by Piter"
+    And I fill in "task[descriptions_attributes][0][description_name]" with "Description made by Piter"
     And I fill in "task_start_time" with "14:00"
     And I fill in "task_end_time" with "17:00"
     And I fill in "task_external_link" with "mail.ru"
