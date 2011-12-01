@@ -10,9 +10,10 @@ Feature: I am on  my_profile page
  @javascript
   Scenario: I can update my email, username, address without filled fields current password, new password, confirmation parrword   
     Given I am "Piter" and I follow "Your profile" within "#link_profile" 
-    And I fill in "user_email" with "piter@piter.com"
-    And I fill in "user_username" with "new_piter"
-    And I fill in "user_address" with "2407 Аллисон-авеню, Панама Сити Бич, Флорида 32408, Соединённые Штаты Америки"
+    When I fill in the following:
+      | user_email    | piter@piter.com|
+      | user_username | new_piter|
+      | user_address  | 2407 Аллисон-авеню, Панама Сити Бич, Флорида 32408, Соединённые Штаты Америки|
     When I press "Update"
     Then I should see "You updated your account successfully." within "#flash_notice"
     And I should see "Signed in as piter@piter.com. Not you?" within "#user_new"
@@ -22,8 +23,9 @@ Feature: I am on  my_profile page
    @javascript
   Scenario: I cann't update my profile if fields email and username are empty   
     Given I am "Piter" and I follow "Your profile" within "#link_profile" 
-    And I fill in "user_email" with ""
-    And I fill in "user_username" with ""
+    When I fill in the following:
+      | user_email    | |
+      | user_username | |
     When I press "Update"
     Then I should see "Email can't be blank" within "#error_explanation"
     And I should see "Username can't be blank" within "#error_explanation"
@@ -31,8 +33,9 @@ Feature: I am on  my_profile page
   @javascript
   Scenario: I cann't change my password if field Password is empty and fields New password and Password confirmation are different   
     Given I am "Piter" and I follow "Your profile" within "#link_profile" 
-    And I fill in "user_password" with "new_piter"
-    And I fill in "user_password_confirmation" with "another_piter"
+    When I fill in the following:
+      | user_password              | new_piter |
+      | user_password_confirmation | another_piter |
     When I press "Update"
     Then I should see "Password doesn't match confirmation" within "#error_explanation"
     And I should see "Current password can't be blank" within "#error_explanation"

@@ -14,12 +14,13 @@ Feature: Entrance to homepage
     Given  I am on the home page
     When I follow "Sign up"
     Then I should see "Sign up"
-    And I fill in "Email" with "test@gmail.com"
-    And I fill in "Username" with "test"
-    And I fill in "Password" with "test"
-    And I fill in "Password confirmation" with "test"
+    When I fill in the following:
+      | Email                | test@gmail.com |
+      | Username             | test |
+      | Password             | test |
+      | Password confirmation|test|
     When I press "Sign up"
-    Then I should see "Welcome! You have signed up successfully." within "#flash_notice" 
+      Then I should see "Welcome! You have signed up successfully." within "#flash_notice" 
 
    Scenario: Entrance user admin on site 
     Given Logged in as "admin"
