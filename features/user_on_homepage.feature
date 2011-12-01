@@ -28,12 +28,11 @@ Feature: I am user and I am on  home page
     Given I am "Piter" and I follow "New Task" within ".new_task_link"
     And I should see "New task" within "h1"
     And I wait for the ajax request to finish
-   #    And I fill in "Task name" with "myTask"
-    And I press "Save"  
-    Then should see "Task name can't be blank"
-    Then should see "Project can't be blank"
-    Then should see "Descriptions description name can't be blank"
-    Then should see "End time must be at least Start time"
+    When I press "Save"  
+    Then I should see "Task name can't be blank"
+    And I should see "Project can't be blank"
+    And I should see "Descriptions description name can't be blank"
+    And I should see "End time must be at least Start time"
 
   @javascript
   Scenario: I can create new task, edit and destroy one 
@@ -53,10 +52,10 @@ Feature: I am user and I am on  home page
     Then I should see "Editing task"
     And I wait for the ajax request to finish
     And I fill in "Task name" with "new myTask"
-    And I press "Save"
+    When I press "Save"
     Then I should see "Task was successfully updated." within "#flash_notice" 
     When I follow "Destroy"
-    When I confirm popup
+    And I confirm popup
     Then I should not see "Project 1"
 
 
