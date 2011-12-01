@@ -57,7 +57,6 @@ Feature: I am user and I am on  home page
     Then I should see "Task was successfully updated." within "#flash_notice" 
     #    When I follow "Destroy"
     #    Then I should see "Are you sure?"
-    Then show me the page
 
 
   
