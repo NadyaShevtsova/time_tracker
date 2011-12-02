@@ -29,11 +29,11 @@ Feature: I am on  my_profile page
       | user_password | new_piter |
       | user_password | new_piter |
     When I press "Update"
-    Then I should see the following:
-      | Email can't be blank               | 
-      | Username can't be blank            | 
-      | Password doesn't match confirmation|
-      | Current password can't be blank    |
+    Then I should see the following within "#error_explanation":
+      | Email can't be blank                |  
+      | Username can't be blank             | 
+      | Password doesn't match confirmation |  
+      | Current password can't be blank     |  
 
   
   Scenario: I can return back to homepage  
