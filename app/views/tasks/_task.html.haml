@@ -3,20 +3,20 @@
     - if current_user.admin
       %td
         = task.user.username
-        %td
-          = task.project.name 
-        %td
-          =task.task_name
-        %td
-          = truncate(description.description_name, :length => 60)
-        %td
-          = task.start_time.strftime("%H:%M")
-        %td
-          = task.end_time.strftime("%H:%M") 
-        %td 
-          = raw(auto_link(task.external_link))
-        - if @current_date == Date.today or current_user.admin
-          %td
-            = link_to 'Edit', edit_task_path(task, transfer_params), :rel=>"#overlay"
-            %br
-            = link_to 'Destroy', task_path(task, transfer_params), :confirm => 'Are you sure?', :method => :delete
+    %td
+      = task.project.name 
+    %td
+      =task.task_name
+    %td
+      = truncate(description.description_name, :length => 60)
+    %td
+      = task.start_time.strftime("%H:%M")
+    %td
+      = task.end_time.strftime("%H:%M") 
+    %td 
+      = raw(auto_link(task.external_link))
+    - if @current_date == Date.today or current_user.admin
+      %td
+        = link_to 'Edit', edit_task_path(task, transfer_params), :rel=>"#overlay"
+        %br
+        = link_to 'Destroy', task_path(task, transfer_params), :confirm => 'Are you sure?', :method => :delete

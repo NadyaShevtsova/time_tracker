@@ -9,12 +9,13 @@ Feature: I am admin and I am on  home page
     view report for specific week if I am admin
     review reports for week
 
+  @mip
   Scenario: I am admin and I follow to week (2011/10/31 - 2011/11/06) 
     Given User "admin" has 1 projects, and each project has 1 tasks, each task has 1 descriptions from 2 days ago to 3 days since
     And I follow "week (2011/11/28 - 2011/12/04)"
     And I should see "Report for week"  
     And I should see "Company name 1"
-    Then show me the page
+    # Then show me the page
     #    When I follow "Back"
     #Then I should see "Your tasks for today" within "h2"
 
