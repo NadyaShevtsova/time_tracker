@@ -12,9 +12,9 @@ Feature: I am user and I am on  home page
   Scenario: I can see my tasks on selected day, select number items on page
     Given User "Piter" has 5 projects, and each project has 2 tasks, each task has 1 descriptions from 2 days ago to 3 days since
     And should see "Description 211" within "table#tasks"
-    When I follow "2" within ".pagination"
-    Then I should see "Description 321" within "table#tasks"
     When I follow "Next" within ".pagination"
+    Then I should see "Description 321" within "table#tasks"
+    When I follow "3" within ".pagination"
     Then I should see "Description 511" within "table#tasks"
     When I select "5" from "per_page"
     Then I should see "Description 311" within "table#tasks"

@@ -11,9 +11,9 @@ Feature: I am on  my_profile page
   Scenario: I can update my email, username, address without filled fields current password, new password, confirmation parrword   
     Given I am "Piter" and I follow "Your profile" within "#link_profile" 
     When I fill in the following:
-      | user_email    | piter@piter.com|
-      | user_username | new_piter|
-      | user_address  | 2407 Аллисон-авеню, Панама Сити Бич, Флорида 32408, Соединённые Штаты Америки|
+      | user_email    | piter@piter.com |
+      | user_username | new_piter       |
+      | user_address  | 2407 Аллисон-авеню, Панама Сити Бич, Флорида 32408, Соединённые Штаты Америки |
     When I press "Update"
     Then I should see "You updated your account successfully." within "#flash_notice"
     And I should see "Signed in as piter@piter.com. Not you?" within "#user_new"
