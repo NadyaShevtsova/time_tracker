@@ -42,16 +42,10 @@ class TasksController < ApplicationController
 
     params[:task].delete("project_attributes") if params[:task][:project_attributes][:name].blank?
     respond_to do |format|
-      format.js do
-        render :update do |page|
-          if @task.update_attributes(params[:task])
-            flash[:notice] = 'Task was successfully updated.'
-            page << "window.location.href = '#{root_path(:date => @task.start_time.strftime("%m/%d/%Y"))}' + '&sort=#{params[:sort]}' + '&direction=#{params[:direction]}' + '&per_page=#{params[:per_page]}'"
-          else
-            page << "$('.contentWrap').html('#{escape_javascript(render :template => "tasks/edit")}')"
-          end
-        end
+      if @task.update_attributes(params[:task])
+        flash[:notice] = 'Task was successfully updated.'
       end
+      format.js
     end
   end
 
