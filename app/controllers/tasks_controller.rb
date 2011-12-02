@@ -28,17 +28,12 @@ class TasksController < ApplicationController
 
     @task[:user_id] = current_user.id unless current_user.admin
     respond_to do |format|
-      format.js do
-        render :update do |page|
-          if @task.save
-            flash[:notice] = "Task added success"
-            page << "window.location.href = '#{root_path(:date => @task.start_time.strftime("%Y/%m/%d"))}' + '&sort=#{params[:sort]}' + '&direction=#{params[:direction]}' + '&per_page=#{params[:per_page]}'"
-          else
-            @task.build_project
-            page << "$('.contentWrap').html('#{escape_javascript(render :template => "tasks/new")}')"
-          end
-        end
+      if @task.save
+        flash[:notice] = "Task added success"
+      else
+        @task.build_project
       end
+      format.js
     end
   end
 

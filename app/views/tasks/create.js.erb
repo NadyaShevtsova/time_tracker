@@ -1,0 +1,6 @@
+<% unless @task.new_record? %>
+  window.location.href = '<%= root_path(:date => @task.start_time.strftime("%Y/%m/%d"))%>' + '&sort=<%= params[:sort]%>' + '&direction=<%= params[:direction]%>' + '&per_page=<%= params[:per_page]%>'
+<% else %>
+ $('.contentWrap').html('<%= escape_javascript(render :template => "tasks/new")%>')
+<% end %>
+
