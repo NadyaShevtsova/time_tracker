@@ -1,9 +1,10 @@
 - @details.each do |cur|
   %tr.report_tasks_td_ditails{:class => "#{params[:id]}_#{params[:user_id]}_#{params[:project_id]}_details"}
-    %td
-    %td
-      = cur.description
-    %td
-      = cur.start_time.strftime("%Y/%m/%d %H:%M")
-      &mdash;
-      = cur.end_time.strftime("%Y/%m/%d %H:%M")
+    - cur.descriptions.each do |description|
+      %td
+      %td
+        = description.description_name
+      %td
+        = cur.start_time.strftime("%Y/%m/%d %H:%M")
+        &mdash;
+        = cur.end_time.strftime("%Y/%m/%d %H:%M")

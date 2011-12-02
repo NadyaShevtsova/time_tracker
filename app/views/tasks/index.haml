@@ -19,30 +19,8 @@
     = helper_for_sortable "start_time", "Start time"
     = helper_for_sortable "end_time", "Finish time"
     = helper_for_sortable "external_link", "External_link"
-  - @tasks.each do |task|
-    - task.descriptions.each do |description|
-      %tr
-        - if current_user.admin
-          %td
-            = task.user.username
-        %td
-          = task.project.name 
-        %td
-          =task.task_name
-        %td
-          = truncate(description.description_name, :length => 60)
-        %td
-          = task.start_time.strftime("%H:%M")
-        %td
-          = task.end_time.strftime("%H:%M") 
-        %td 
-          = raw(auto_link(task.external_link))
-        - if @current_date == Date.today or current_user.admin
-          %td
-            = link_to 'Edit', edit_task_path(task, transfer_params), :rel=>"#overlay"
-            %br
-            = link_to 'Destroy', task_path(task, transfer_params), :confirm => 'Are you sure?', :method => :delete
-  
+  = render @tasks 
+
 %div{:class => "new_task_link #{(@current_date == Date.today or current_user.admin) ? '' : 'hide'}"}
   = link_to 'New Task', new_task_path(transfer_params, :date => params[:date]), :rel=>"#overlay"
   .apple_overlay#overlay

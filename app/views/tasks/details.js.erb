@@ -1,0 +1,4 @@
+$('tr#<%= params[:id] %>_<%= params[:user_id] %>_<%= params[:project_id] %> a.link_to_ajax').addClass('hide');
+$('tr#<%= params[:id]%>_<%= params[:user_id]%>_<%= params[:project_id]%> a.link_to_func').removeClass('hide');
+$('tr#<%= params[:id] %>_<%= params[:user_id] %>_<%= params[:project_id]%>').after('<%= escape_javascript(render :partial => "details")%>');
+
