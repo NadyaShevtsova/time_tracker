@@ -6,24 +6,24 @@ Feature: Entrance to homepage
     When I am logged in as "user1" with password "user1"
     Then I should see "Invalid email, username or password." within "#flash_alert"
 
-  Scenario: Entrance on site  if I has been registrated already
-    Given Logged in as "Piter" 
-    
-
-  Scenario: Entrance on site via form sign-up
+    Scenario: Entrance on site via form sign-up
     Given  I am on the home page
     When I follow "Sign up"
     Then I should see "Sign up"
     When I fill in the following:
-      | Email                | test@gmail.com |
-      | Username             | test |
-      | Password             | test |
-      | Password confirmation|test|
+      | Email                 | test@gmail.com |
+      | Username              | test           |
+      | Password              | test           |
+      | Password confirmation | test           |
     When I press "Sign up"
       Then I should see "Welcome! You have signed up successfully." within "#flash_notice" 
 
-   Scenario: Entrance user admin on site 
-    Given Logged in as "admin"
+   Scenario Outline: Entrance on site 
+    Given Logged in as "<user_name>"
+
+    Examples:
+      | Piter |
+      | admin |
 
    
 

@@ -24,22 +24,18 @@ Feature: I am on  my_profile page
   Scenario: I cann't update my profile if fields email and username are empty   
     Given I am "Piter" and I follow "Your profile" within "#link_profile" 
     When I fill in the following:
-      | user_email    | |
-      | user_username | |
+      | user_email    |           |
+      | user_username |           |
+      | user_password | new_piter |
+      | user_password | new_piter |
     When I press "Update"
-    Then I should see "Email can't be blank" within "#error_explanation"
-    And I should see "Username can't be blank" within "#error_explanation"
+    Then I should see the following:
+      | Email can't be blank               | 
+      | Username can't be blank            | 
+      | Password doesn't match confirmation|
+      | Current password can't be blank    |
 
-  @javascript
-  Scenario: I cann't change my password if field Password is empty and fields New password and Password confirmation are different   
-    Given I am "Piter" and I follow "Your profile" within "#link_profile" 
-    When I fill in the following:
-      | user_password              | new_piter |
-      | user_password_confirmation | another_piter |
-    When I press "Update"
-    Then I should see "Password doesn't match confirmation" within "#error_explanation"
-    And I should see "Current password can't be blank" within "#error_explanation"
-
+  
   Scenario: I can return back to homepage  
     Given I am "Piter" and I follow "Your profile" within "#link_profile" 
     When I follow "Back to tasks"

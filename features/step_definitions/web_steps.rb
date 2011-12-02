@@ -218,3 +218,10 @@ Then /^show me the page$/ do
   save_and_open_page
 end
 
+# my steps
+Then /^(?:|I )should see the following(?: within "([^"]*)")?:$/ do |selector, fields|
+  with_scope(selector) do |text|
+    step %{I should see "#{text}"}
+  end
+end
+
