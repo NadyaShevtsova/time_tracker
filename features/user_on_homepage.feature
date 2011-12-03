@@ -49,13 +49,13 @@ Feature: I am user and I am on  home page
       | task_external_link                                | mail.ru   |
     When I press "Save"
     Then I should see "Task added success" within "#flash_notice"
-    When I follow "Edit"
+    When I follow "Edit" within "#tr_1"
     Then I should see "Editing task"
     And I wait for the ajax request to finish
     And I fill in "Task name" with "new myTask"
     When I press "Save"
     Then I should see "Task was successfully updated." within "#flash_notice"
-    When I follow "Destroy"
+    When I follow "Destroy" within "#tr_1"
     And I confirm popup
     Then I should not see "Project 1"
 

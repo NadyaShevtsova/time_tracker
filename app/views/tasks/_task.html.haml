@@ -1,5 +1,5 @@
 - task.descriptions.each do |description|
-  %tr
+  %tr{:id => "tr_#{description.task.id}"}
     - if current_user.admin
       %td
         = task.user.username
