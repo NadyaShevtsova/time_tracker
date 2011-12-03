@@ -3,8 +3,8 @@ module TasksHelper
     date_now = (params[:date]).nil? ? Date.today : Date.parse(params[:date])
     start_week = date_now.beginning_of_month.beginning_of_week
     links = ""
-    6.times do 
-      links += link_to "week (#{start_week.strftime("%Y/%m/%d")} - #{start_week.end_of_week.strftime("%Y/%m/%d")})", reports_index_path(:start_date => start_week.strftime("%Y/%m/%d"), :end_date => start_week.end_of_week.strftime("%Y/%m/%d"))
+    6.times do |week|
+      links += link_to "week (#{start_week.strftime("%Y/%m/%d")} - #{start_week.end_of_week.strftime("%Y/%m/%d")})", reports_index_path(:start_date => start_week.strftime("%Y/%m/%d"), :end_date => start_week.end_of_week.strftime("%Y/%m/%d")), :id => "week_#{week.next}" 
       links += "<br>"
       start_week = start_week + 7.days
       break if start_week.month !=  date_now.month
