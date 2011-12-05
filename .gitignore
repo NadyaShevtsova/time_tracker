@@ -4,6 +4,9 @@ log/*.log
 tmp/
 *.sw?
 .rvmrc
+.rvmrc*
 config/database.yml
 .sass-cache/*
 coverage/*
+
+
